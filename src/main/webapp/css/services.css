@@ -1,0 +1,54 @@
+/*--------------------------------------------------------------------------
++	Services Style
+--------------------------------------------------------------------------*/
+/* Multicolumn */
+.service-wrapper {
+    background: #FFF;
+    margin: 20px 10px;
+    text-align: center;
+    padding: 30px 20px;
+    -webkit-border-radius: 5px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 5px;
+    -moz-background-clip: padding;
+    border-radius: 5px;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 0 3px #999;
+    -moz-box-shadow: 0 0 3px #999;
+    box-shadow: 0 0 3px #999;
+    color: 0 0 3px #999;
+}
+.service-wrapper h3 {
+    font-size: 1.2em;
+    margin: 10px 0 !important;
+}
+.service-wrapper p {
+    margin-top: 0;
+}
+/* Row */
+.service-wrapper-row {
+    padding: 10px 0;
+}
+.service-wrapper-row h3 {
+    padding-top: 15px;
+}
+.service-wrapper-row .service-image {
+    padding-top: 15px;
+    text-align: center;
+}
+.service-wrapper-row .service-image img {
+    max-width: 80%;
+    vertical-align: bottom;
+    bottom: 0;
+    border: 7px solid #FFF;
+    -webkit-border-radius: 5px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 5px;
+    -moz-background-clip: padding;
+    border-radius: 5px;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 0 8px #999;
+    -moz-box-shadow: 0 0 8px #999;
+    box-shadow: 0 0 8px #999;
+    color: 0 0 8px #999;
+}
