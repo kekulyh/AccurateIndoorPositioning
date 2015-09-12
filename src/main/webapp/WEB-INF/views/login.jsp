@@ -113,7 +113,7 @@
             <div class="col-md-3 col-sm-3"></div>
             <div class="col-md-6 col-sm-6">
                 <div class="basic-login">
-                    <form role="form" role="form" action="login" method="post">
+                    <form role="form" action="login" method="post">
                     	<!-- 注册成功alert -->
                     	<div class="alert alert-success alert-dismissable hide" id="registerSuccess">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">

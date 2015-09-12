@@ -2,14 +2,18 @@ package au.usyd.capstone.serviceimpl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import au.usyd.capstone.dao.BaseDao;
 import au.usyd.capstone.service.BaseService;
 
+@Transactional
 public class BaseServiceImpl<T> implements BaseService<T> {
 	
-	@Autowired
+	
 	private BaseDao<T> baseDao;
 	
 	public BaseDao<T> getBaseDaoImpl() {

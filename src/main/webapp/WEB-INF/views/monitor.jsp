@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -22,7 +21,12 @@
 <link rel="stylesheet" href="css/blog.css" >
 </head>
 
-<body>
+<!-- <body> -->
+
+<!-- SVG -->
+<body onload="SvgClick();">
+<!-- SVG function -->
+
 <!--[if lt IE 7]>
 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
@@ -118,37 +122,59 @@
                         </span>
                     </div>
                 </form>
+                <div class="single-post-info"></div>
                 <h4>Devices</h4>
-                <ul class="recent-posts">
-                    <li><a href="#">Id1 Device Name1</a></li>
-                    <li><a href="#">Id2 Device Name2</a></li>
-                    <li><a href="#">Id3 Device Name3</a></li>
-                    <li><a href="#">Id4 Device Name4</a></li>
-                </ul>
+               	
+                <form id="deviceform">
+                	<ul>
+                		<li><input type="button" class="btn btn-default" id="device1" value="Device1 AJAX"/></li>
+                	</ul>
+                </form>
+                
             </div>
             <!-- End Sidebar -->
 
+			<!-- Map Content -->
             <div class="col-md-10 col-sm-10">
                 <div class="blog-post blog-single-post">
-
-
+					<!-- 标题 -->
                     <div class="single-post-title" align="center">
                         <h3>Level 7 Office Map</h3>
                     </div>
-
+					<!-- 分隔线 -->
                     <div class="single-post-info"></div>
 
+					<!-- SVG画板点击生成坐标点 -->
                     <div class="single-post-image">
-                        <img src="img/maps/level_7_office_map.png" alt="level_7_office_map" width="900px">
+                    	<h5 class="bg-primary">Click On Map To Draw Coordinates (Test)</h5>
+                        <svg id="svgMap" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:900px;height:290px;border:0px solid black;">
+                            <image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">
+                        </svg>
                     </div>
-
+                    
+                    <!-- 分隔线 -->
                     <div class="single-post-info"></div>
-
-
-
+                    
+                    <!-- AJAX生成坐标点 -->
+					<div class="single-post-image">
+						<h5 class="bg-primary">Click Device Button To Draw Coordinates (Test)</h5>
+                        <svg id="svgAuto" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:900px;height:290px;border:0px solid black;">
+                            <image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">
+                        </svg>
+                    </div>
+                    <br>
+                    <!-- 显示坐标 -->
+                    <div>
+                    	<div class="bg-info text-left"  >Coordinate X : <span id="coordinateXLabel"></span></div>
+                    	<div class="bg-info text-left"  >Coordinate Y : <span id="coordinateYLabel"></span></div>
+                    </div>
+                    
+					<!-- 分隔线 -->
+                    <div class="single-post-info"></div>
                 </div>
             </div>
-            <!-- End Blog Post -->
+            <!-- End Map Content -->
+            
         </div>
     </div>
 </div>
@@ -192,6 +218,7 @@
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.1.4.min.js"><\/script>')</script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
+<script src="js/monitor.js"></script>
 
 <!--Google Analytics: change UA-XXXXX-X to be your site's ID.-->
 <script>
