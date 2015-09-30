@@ -2,6 +2,7 @@ package au.usyd.capstone.domain;
 
 import javax.persistence.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="capstone_device")
 public class Device extends BaseDomain {
@@ -13,9 +14,13 @@ public class Device extends BaseDomain {
 	
 	private String devicename;
 	
-	private float coordinateX;
+	private String devicemacaddress;
 	
-	private float coordinateY;
+	private String devicemodel;
+	
+	private double coordinateX;
+	
+	private double coordinateY;
 	
 	private String description;
 	
@@ -36,19 +41,35 @@ public class Device extends BaseDomain {
 		this.devicename = devicename;
 	}
 	
-	public float getCoordinateX() {
+	public String getDevicemacaddress() {
+		return devicemacaddress;
+	}
+
+	public void setDevicemacaddress(String devicemacaddress) {
+		this.devicemacaddress = devicemacaddress;
+	}
+
+	public String getDevicemodel() {
+		return devicemodel;
+	}
+
+	public void setDevicemodel(String devicemodel) {
+		this.devicemodel = devicemodel;
+	}
+
+	public double getCoordinateX() {
 		return coordinateX;
 	}
 
-	public void setCoordinateX(float coordinateX) {
+	public void setCoordinateX(double coordinateX) {
 		this.coordinateX = coordinateX;
 	}
 
-	public float getCoordinateY() {
+	public double getCoordinateY() {
 		return coordinateY;
 	}
 
-	public void setCoordinateY(float coordinateY) {
+	public void setCoordinateY(double coordinateY) {
 		this.coordinateY = coordinateY;
 	}
 

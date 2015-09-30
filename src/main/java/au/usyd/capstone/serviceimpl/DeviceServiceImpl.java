@@ -28,11 +28,25 @@ public class DeviceServiceImpl implements DeviceService {
 	
 	
 	@Override
-	public Device display() {
+	public void calculateCoordinate(Device device) {
 		// TODO Auto-generated method stub
-		return deviceDao.display();
+		deviceDao.calculateCoordinate(device);
+	}
+	
+	@Override
+	public Device display(Device device) {
+		// TODO Auto-generated method stub
+		return deviceDao.display(device);
 	}
 
+	@Override
+	public Device deviceAdd(Device device) {
+		// TODO Auto-generated method stub
+		return deviceDao.deviceAdd(device);
+	}
+	
+	
+	
 	
 	
 	//去掉 extends BaseServiceImpl<Device>，必须实现父类方法
@@ -71,5 +85,9 @@ public class DeviceServiceImpl implements DeviceService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
+
+	
 	
 }

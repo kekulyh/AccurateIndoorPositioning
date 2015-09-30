@@ -7,7 +7,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Accurate Indoor Positioning :: Monitor</title>
+<title>Accurate Indoor Positioning :: Manage</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,11 +22,7 @@
 </head>
 
 <!-- <body> -->
-
-<!-- SVG -->
-<body onload="SvgClick();">
-<!-- SVG function -->
-
+<body>
 <!--[if lt IE 7]>
 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
@@ -47,7 +43,7 @@
 
                 <li><a href="main">Home</a></li>
 
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="devicestatus" class="dropdown-toggle" data-toggle="dropdown" data-target="devicestatus">Manage<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="devicestatus">Device Status</a></li>
@@ -59,14 +55,14 @@
                     </ul>
                 </li>
 
-                <li class="dropdown active">
-                            <a href="monitor" class="dropdown-toggle" data-toggle="dropdown" data-target="monitor">Monitor<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="monitor">Monitor</a></li>
-                                <li class="divider"></li>
-                                <li><a href="monitorforzhaidi">Monitor For Zhaidi</a></li>
-                            </ul>
-                        </li>
+                <li class="dropdown">
+                    <a href="monitor" class="dropdown-toggle" data-toggle="dropdown" data-target="monitor">Monitor<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="monitor">Monitor</a></li>
+                        <li class="divider"></li>
+                        <li><a href="monitorforzhaidi">Monitor For Zhaidi</a></li>
+                    </ul>
+                </li>
 
                 <li class="dropdown">
                     <a href="alarm-history.html" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Alarm<b class="caret"></b></a>
@@ -108,7 +104,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Monitor</h1>
+                <h1>Manage</h1>
             </div>
         </div>
     </div>
@@ -120,21 +116,21 @@
 
             <!-- Sidebar -->
             <div class="col-md-2 col-sm-2 blog-sidebar">
-                <h4>Search devices</h4>
+                <h4>Device Status</h4>
                 <form>
-                    <div class="input-group">
-                        <input class="form-control input-md" id="appendedInputButtons" type="text">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary btn-md" type="button">Search</button>
-                        </span>
-                    </div>
+                    <ul class="recent-posts">
+                    	<li><a href="devicestatus">Device Status</a></li>
+                    </ul>
                 </form>
-                <div class="single-post-info"></div>
-                <h4>Devices</h4>
+                
+                <h4>Device Manage</h4>
                	
                 <form id="deviceform">
-                	<ul>
-                		<li><input type="button" class="btn btn-default" id="device1" name="device1" value="Device1 AJAX"/></li>
+                	<ul class="recent-posts">
+                		<li><a href="deviceadd">Add Device</a></li>
+                		<li><a href="#">Search Device</a></li>
+                		<li><a href="#">Edit Device</a></li>
+                		<li><a href="#">Delete Device</a></li>
                 	</ul>
                 </form>
                 
@@ -146,36 +142,59 @@
                 <div class="blog-post blog-single-post">
 					<!-- 标题 -->
                     <div class="single-post-title" align="center">
-                        <h3>Level 7 Office Map</h3>
+                        <h3>Device Status</h3>
                     </div>
 					<!-- 分隔线 -->
                     <div class="single-post-info"></div>
+					<br>
+					<!-- deviceadd成功 -->
+                    <div class="alert alert-success alert-dismissable hide" id="addSuccess">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Success. Device successfully added.</strong>
+                    </div>
+                    
+                    <script type="text/javascript">
+			        	$("#${requestScope.alertDeviceadd}").attr("class","alert alert-success");
+                    </script>
+                    
+                    
+					<div class="">
+						<div class="col-md-12 servc-info">
+							<h3 class="">Device List</h3>
+							
+							<div class="table-responsive">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th class=""><input type="checkbox" class="" /></th>
+											<th>Device Name</th>
+											<th>MAC Address</th>
+											<th>Device Model</th>
+											<th>Description</th>
+										</tr>
+									</thead>
+									<tbody>
+										<%-- <c:forEach items="${contentModel.items}" var="item" varStatus="status"> --%>
+										<tr class="odd gradeX">
+											<td class="check_cell"><input type="checkbox"
+												class="checkboxes" name="Id" value="${ item.id }" /></td>
+											<td>${ item.devicename }</td>
+											<td>${ item.macaddres }</td>
+											<td>${ item.devicemodel }</td>
+											<td>${ item.description }</td>
+										</tr>
+										<%-- </c:forEach> --%>
+									</tbody>
+								</table>
+							</div>
 
-					<!-- SVG画板点击生成坐标点 -->
-                    <!-- <div class="single-post-image">
-                    	<h5 class="bg-primary">Click On Map To Draw Coordinates (Test)</h5>
-                        <svg id="svgMap" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:900px;height:290px;border:0px solid black;">
-                            <image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">
-                        </svg>
-                    </div> -->
-                    
-                    <!-- 分隔线 -->
-                    <!-- <div class="single-post-info"></div> -->
-                    
-                    <!-- AJAX生成坐标点 -->
-					<div class="single-post-image">
-						<h5 class="bg-primary">Click Device Button To Draw Coordinates (Test)</h5>
-                        <svg id="svgAuto" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:900px;height:290px;border:0px solid black;">
-                            <image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">
-                        </svg>
-                    </div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<!-- Find Medicine End -->
                     <br>
-                    <!-- 显示坐标 -->
-                    <div>
-                    	<div class="bg-info text-left"  >Coordinate X : <span id="coordinateXLabel"></span></div>
-                    	<div class="bg-info text-left"  >Coordinate Y : <span id="coordinateYLabel"></span></div>
-                    </div>
-                    
 					<!-- 分隔线 -->
                     <div class="single-post-info"></div>
                 </div>
@@ -225,7 +244,6 @@
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.1.4.min.js"><\/script>')</script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
-<script src="js/monitor.js"></script>
 
 <!--Google Analytics: change UA-XXXXX-X to be your site's ID.-->
 <script>

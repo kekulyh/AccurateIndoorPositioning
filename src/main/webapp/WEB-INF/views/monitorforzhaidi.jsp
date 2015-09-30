@@ -24,7 +24,7 @@
 <!-- <body> -->
 
 <!-- SVG -->
-<body onload="SvgClick();">
+<body>
 <!-- SVG function -->
 
 <!--[if lt IE 7]>
@@ -108,7 +108,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Monitor</h1>
+                <h1>Monitor For Zhaidi</h1>
             </div>
         </div>
     </div>
@@ -225,7 +225,7 @@
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.1.4.min.js"><\/script>')</script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
-<script src="js/monitor.js"></script>
+<script src="js/monitorforzhaidi.js"></script>
 
 <!--Google Analytics: change UA-XXXXX-X to be your site's ID.-->
 <script>

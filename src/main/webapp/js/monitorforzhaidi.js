@@ -117,20 +117,22 @@ function AjaxMap(){
 					xOld = xNew;
 					yOld = yNew;
 					}
+				if (xNew != xOld || yNew != yOld) {
+					/* 显示坐标点 */
+					ShowDevice(xNew, yNew);
 
-				/* 显示坐标点 */
-				ShowDevice(xNew, yNew);
+					/* 画轨迹 */
+					DrawLine();
 
-				/* 画轨迹 */
-				DrawLine();
+					/* 坐标赋给Old，为下一个轨迹使用 */
+					xOld = xNew;
+					yOld = yNew;
 
-				/* 坐标赋给Old，为下一个轨迹使用 */
-				xOld = xNew;
-				yOld = yNew;
-
-				/* 显示坐标 */
-				document.getElementById("coordinateXLabel").innerHTML=xNew;
-				document.getElementById("coordinateYLabel").innerHTML=yNew;
+					/* 显示坐标 */
+					document.getElementById("coordinateXLabel").innerHTML=xNew;
+					document.getElementById("coordinateYLabel").innerHTML=yNew;
+				}
+				
 				
 			},
 		error : 
@@ -159,7 +161,7 @@ function enter() {
 	/* 设置每一秒轮询一次 */
 	AjaxInterval = setInterval(function(){
 		AjaxMap();
-	},2000);
+	},500);
 	
 }
 

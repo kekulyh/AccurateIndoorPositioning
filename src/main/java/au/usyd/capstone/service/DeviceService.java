@@ -4,6 +4,10 @@ import au.usyd.capstone.domain.Device;
 
 public interface DeviceService extends BaseService<Device> {
 	
-	public Device display();
+	public void calculateCoordinate(Device device);
+	
+	public Device display(Device device);
+	
+	public Device deviceAdd(Device device);
 	
 }
