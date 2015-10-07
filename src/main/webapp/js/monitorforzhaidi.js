@@ -156,12 +156,12 @@ function enter() {
 	/* 初始执行一次 */
     AjaxTimeout = setTimeout(function() {
 		AjaxMap();
-	},200);
+	},100);
 
 	/* 设置每一秒轮询一次 */
 	AjaxInterval = setInterval(function(){
 		AjaxMap();
-	},500);
+	},100);
 	
 }
 
