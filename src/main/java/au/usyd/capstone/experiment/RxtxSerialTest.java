@@ -1,8 +1,8 @@
 /**************************************************************************
 *	File name: RxtxSerialTest
 *	Author: Yahong Liu
-*	Version: 3
-*	Date: 27/09/2015
+*	Version: 4.0
+*	Date: 17/10/2015
 *	Description: Java RXTX read serial input and calculation of coordinate
 ***************************************************************************/
 
@@ -213,28 +213,13 @@ public class RxtxSerialTest implements SerialPortEventListener {
 		gyro2 = Double.parseDouble(g2)+0.896326531;
 		gyro3 = Double.parseDouble(g3)-0.122693878;
 		
-//		System.out.println("**********************START**********************");
-//		System.out.println("a1: " + accel1 +" , a2: " + accel2 + " , a3: " + accel3 + " , g1: " + gyro1 + " , g2: " + gyro1 + " , g3: " + gyro3);
-		
 		// handle acceleration data
 		accel = Math.sqrt(Math.pow(accel1, 2) + Math.pow(accel2, 2) + Math.pow(accel3, 2)) - 1;
-		
-//		System.out.println("Acceleration: " + accel);
-		
-		// set gyro time
-		//gyroTime =  ( System.currentTimeMillis() - currentTime ) / 1000.0000;
-		
-		// update current time
-		//currentTime = System.currentTimeMillis();
 		
 		// handle gyro data
 		anglex = anglex + gyro1 * gyroTime;
 		angley = angley + gyro2 * gyroTime;
 		anglez = anglez + gyro3 * gyroTime;
-		
-//		System.out.println("Angle X: " + anglex);
-//		System.out.println("Angle Y: " + angley);
-//		System.out.println("Angle Z: " + anglez);
 		
 		if (accel >0.25) {
 			
@@ -242,24 +227,23 @@ public class RxtxSerialTest implements SerialPortEventListener {
 			nextStepXReal = step * Math.cos(anglez * Math.PI / 180);
 			nextStepYReal = step * Math.sin(anglez * Math.PI / 180);
 			
-//			System.out.println("nextStepXReal: " + nextStepXReal + "nextStepYReal: " + nextStepYReal);
-			
 			// convert real data for displaying on UI
 			nextStepX = nextStepXReal * 250/12;
 			nextStepY = nextStepYReal * 250/12;
 			
-//			System.out.println("nextStepX: " + nextStepX + "nextStepY: " + nextStepY);
+			// Stabilization.if time interval is larger than 500ms, update coordinate.
+			if( (int) (System.currentTimeMillis() - currentTime)>500){
+				// update coordinate
+				coordinateX = coordinateX - nextStepX;
+				coordinateY = coordinateY + nextStepY;
+			}
 			
-			// update coordinate
-			coordinateX = coordinateX - nextStepX;
-			coordinateY = coordinateY + nextStepY;
+			// update current time when updating coordinate
+			currentTime = System.currentTimeMillis();
 			
 			// initialize the acceleration
 			accel = 0;
 		}
-		
-//		System.out.println("coordinateX: " + coordinateX + " ,coordinateY: " + coordinateY);
-//		System.out.println("**********************END**********************");
 		
 		// set the static coordinate variable
 		this.setCoordinateX(coordinateX);
@@ -267,5 +251,5 @@ public class RxtxSerialTest implements SerialPortEventListener {
 		
 	}
 	
-
+	
 }
