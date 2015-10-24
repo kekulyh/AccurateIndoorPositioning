@@ -1,8 +1,8 @@
 /**************************************************************************
 *	File name: RxtxSerialTest
 *	Author: Yahong Liu
-*	Version: 4.0
-*	Date: 17/10/2015
+*	Version: 5.0
+*	Date: 25/10/2015
 *	Description: Java RXTX read serial input and calculation of coordinate
 ***************************************************************************/
 
@@ -10,7 +10,6 @@ package au.usyd.capstone.experiment;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
@@ -30,12 +29,11 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	// The input stream to the port
 	private BufferedReader input;
 	// The output stream to the port
-	private OutputStream output;
+	//private OutputStream output;
 	// Define timeout milliseconds while waiting for port open
 	private static final int TIME_OUT = 2000;
 	// Define BAUD rate
 	private static final int DATA_RATE = 38400;
-	
 	
 	/** variables for coordinate calculation */
 	// Array for storing the input string data
@@ -75,7 +73,6 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	// static variable for DeviceDaoImpl calling
 	private static double coordinateX = 500;
 	private static double coordinateY = 120;
-	
 	
 	/** setter and getter method for coordinate */
 	public double getCoordinateX() {
@@ -134,7 +131,7 @@ public class RxtxSerialTest implements SerialPortEventListener {
 
 				// open the streams
 				input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
-				output = serialPort.getOutputStream();
+				//output = serialPort.getOutputStream();
 
 				// add event listeners
 				serialPort.addEventListener(this);
