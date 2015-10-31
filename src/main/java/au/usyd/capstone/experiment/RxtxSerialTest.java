@@ -1,8 +1,8 @@
 /**************************************************************************
 *	File name: RxtxSerialTest
 *	Author: Yahong Liu
-*	Version: 5.0
-*	Date: 25/10/2015
+*	Version: 6.0
+*	Date: 01/Nov/2015
 *	Description: Java RXTX read serial input and calculation of coordinate
 ***************************************************************************/
 
@@ -10,6 +10,8 @@ package au.usyd.capstone.experiment;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
@@ -29,7 +31,7 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	// The input stream to the port
 	private BufferedReader input;
 	// The output stream to the port
-	//private OutputStream output;
+	private static OutputStream output;
 	// Define timeout milliseconds while waiting for port open
 	private static final int TIME_OUT = 2000;
 	// Define BAUD rate
@@ -131,7 +133,9 @@ public class RxtxSerialTest implements SerialPortEventListener {
 
 				// open the streams
 				input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
-				//output = serialPort.getOutputStream();
+				output = serialPort.getOutputStream();
+//				char ch = 'R';
+//				output.write(ch);
 
 				// add event listeners
 				serialPort.addEventListener(this);
@@ -164,6 +168,21 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	
 	
 	/**
+	 * Write bytes to OutputStream
+	 */
+	public synchronized void writeData(String data) {
+		 
+//		System.out.println("Output Stream: " + data);
+		try {
+			output.write(data.getBytes());
+		} catch (Exception e) {
+			System.out.println("could not write to port");
+		}
+		 
+	}
+	
+	
+	/**
 	 * Event on the serial port. Handle the data.
 	 */
 	public synchronized void serialEvent(SerialPortEvent serialPortEvent) {
@@ -173,6 +192,7 @@ public class RxtxSerialTest implements SerialPortEventListener {
 			try {
 				// read line data to string
 				String inputLine = input.readLine();
+//				System.out.println("Input Data: "+ inputLine );
 				
 				// split data into array
 				array = inputLine.split("\\\t");

@@ -17,7 +17,7 @@ public class DeviceDaoImpl extends BaseDaoImpl<Device> implements DeviceDao {
 	private double coordinateX = 500;
 	private double coordinateY = 120;
 	
-	/** v1.1 获取坐标写入数据库 */
+	/** v1.2 获取坐标写入数据库 */
 	@Override
 	public void calculateCoordinate(Device device) {
 		// TODO Auto-generated method stub
@@ -37,6 +37,9 @@ public class DeviceDaoImpl extends BaseDaoImpl<Device> implements DeviceDao {
 
 			// 初始化serial监听
 			rxtxSerialTest.initialize();
+			
+			//向Serial Port写入数据
+			rxtxSerialTest.writeData("R");
 			
 			// 获取计算后的坐标
 			coordinateX = rxtxSerialTest.getCoordinateX();
@@ -260,6 +263,48 @@ public class DeviceDaoImpl extends BaseDaoImpl<Device> implements DeviceDao {
 //		
 //	}
 	
+	
+	
+//	/** v1.1 获取坐标写入数据库 */
+//	@Override
+//	public void calculateCoordinate(Device device) {
+//		// TODO Auto-generated method stub
+//		
+//		Device d = new Device();
+//		
+//		String hql = "select d from au.usyd.capstone.domain.Device d where d.devicename='" + device.getDevicename() + "'";
+//		
+//		List<Device> list = this.findAll(hql);
+//		
+//		if (list != null && list.size()>0) {
+//			
+//			//devicename存在
+//			
+//			// 实例化
+//			RxtxSerialTest rxtxSerialTest = new RxtxSerialTest();
+//
+//			// 初始化serial监听
+//			rxtxSerialTest.initialize();
+//			
+//			// 获取计算后的坐标
+//			coordinateX = rxtxSerialTest.getCoordinateX();
+//			coordinateY = rxtxSerialTest.getCoordinateY();
+//			
+//			// 坐标写入数据库
+//			d = list.get(0);
+//			
+//			d.setCoordinateX(coordinateX);
+//			d.setCoordinateY(coordinateY);
+//			
+//			// 更新数据库原数据
+//			this.update(d);
+//	
+//		}else{		
+//			//devicename不存在
+//			
+//		}
+//		
+//	}
 	
 	
 }
