@@ -148,7 +148,7 @@
                             <img src="img/service-icon/manage.png" alt="Service 1">
                             <h3>Manage</h3>
                             <p>Manage the devices status. Add, edit, search and delete devices.</p>
-                            <a href="device-status.html" class="btn">Details</a>
+                            <a href="devicestatus" class="btn">Details</a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6" onclick="location.href='monitor.html';">
@@ -156,7 +156,7 @@
                             <img src="img/service-icon/monitor.png" alt="Service 2">
                             <h3>Monitor</h3>
                             <p>Monitor the devices on indoor maps. Track the devices and display the trace.</p>
-                            <a href="monitor.html" class="btn">Details</a>
+                            <a href="monitorforzhaidi" class="btn">Details</a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6" onclick="location.href='alarm-history.html';">

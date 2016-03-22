@@ -48,18 +48,25 @@
                 <li><a href="main">Home</a></li>
 
                 <li class="dropdown">
-                    <a href="device-status.html" class="dropdown-toggle" data-toggle="dropdown" data-target="device-status.html">Manage<b class="caret"></b></a>
+                    <a href="devicestatus" class="dropdown-toggle" data-toggle="dropdown" data-target="devicestatus">Manage<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="device-status.html">Device Status</a></li>
+                        <li><a href="devicestatus">Device Status</a></li>
                         <li class="divider"></li>
-                        <li><a href="add-device.html">Add Device</a></li>
+                        <li><a href="deviceadd">Add Device</a></li>
                         <li><a href="search-device.html">Search Device</a></li>
                         <li><a href="edit-device.html">Edit Device</a></li>
                         <li><a href="delete-device.html">Delete Device</a></li>
                     </ul>
                 </li>
 
-                <li><a href="monitor">Monitor</a></li>
+                <li class="dropdown">
+                    <a href="monitor" class="dropdown-toggle" data-toggle="dropdown" data-target="monitor">Monitor<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="monitor">Monitor</a></li>
+                        <li class="divider"></li>
+                        <li><a href="monitorforzhaidi">Monitor For Zhaidi</a></li>
+                    </ul>
+                </li>
 
                 <li class="dropdown">
                     <a href="alarm-history.html" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Alarm<b class="caret"></b></a>

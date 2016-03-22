@@ -163,7 +163,7 @@
                     <!-- <div class="single-post-info"></div> -->
                     
                     <!-- AJAX生成坐标点 -->
-					<div class="single-post-image">
+					<div id="svgDiv" class="single-post-image">
 						<h5 class="bg-primary">Click Device Button To Draw Coordinates (Test)</h5>
                         <svg id="svgAuto" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:900px;height:290px;border:0px solid black;">
                             <image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">
@@ -174,6 +174,12 @@
                     <div>
                     	<div class="bg-info text-left"  >Coordinate X : <span id="coordinateXLabel"></span></div>
                     	<div class="bg-info text-left"  >Coordinate Y : <span id="coordinateYLabel"></span></div>
+                    </div>
+                    
+                    <!-- 显示宽高 -->
+                    <div>
+                    	<div class="bg-info text-left"  >Width : <span id="divWidth"></span></div>
+                    	<div class="bg-info text-left"  >Height : <span id="divHeight"></span></div>
                     </div>
                     
 					<!-- 分隔线 -->
