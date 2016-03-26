@@ -25,7 +25,9 @@
 //    }
 //}
 
-
+/** 
+ * monitor界面主要功能JavaScript，用于实现点击按钮后的AJAX交互，以及地图坐标的绘制
+ */
 
 /* 定义坐标为全局变量 */
 var xOld;
@@ -36,6 +38,15 @@ var yNew;
 /* 定义div宽高为全局变量 */
 var svgHeight;
 var svgWidth;
+
+/* 定义上一次的div宽高变量，用以判断是否屏幕尺寸改变了 */
+var svgHeightOld;
+var svgWidthOld;
+
+//全局变量，enter函数里定义，这样主函数后面才可以clearInterval
+var AjaxTimeout;
+var AjaxInterval;
+
 
 
 /** 
@@ -50,75 +61,97 @@ function getDivWidthandHeight(){
 	 * 
 	 * */
 	
+//	取得svg外层div的宽高
 	svgWidth = document.getElementById("svgDiv").offsetWidth;
 	svgHeight = document.getElementById("svgDiv").offsetHeight;
 	
+//	显示该宽高用于调试
 	document.getElementById("divWidth").innerHTML=svgWidth;
 	document.getElementById("divHeight").innerHTML=svgHeight;
 	
 }
 
-/** 
- * 自定义的设置svg和外层div宽高的函数
- */
-
-function setSvgDivWidthHeight(){
-	
-	/* col-lg: 901 x 320;  SVG: 900 x 290
-	 * col-md: 734 x 266;  SVG: 733 x 236
-	 * col-sm: 551 x 207;  SVG: 550 x 177
-	 * 
-	 * */
-	
-	var svgAuto = document.getElementById("svgAuto");
-	
-	var svgDiv = document.getElementById("svgDiv");
-	
-	if(svgWidth>900){
-		svgAuto.style.width = 900;
-		svgAuto.style.height = 290;
-		svgAuto.innerHTML = '<image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">';
-		
-		/* 只能设置高度，让div适配svg，如果同时设置宽度，则下一轮询时，读取的宽度值会固定，从而无法缩放svg */
-//		svgDiv.style.width = "901px";
-		svgDiv.style.height = "320px";
-		
-	}else if(svgWidth>733){
-		svgAuto.style.width = 733;
-		svgAuto.style.height = 236;
-		svgAuto.innerHTML = '<image xlink:href="img/maps/level_7_office_map.png" width="733px" height="236px">';
-		
-//		svgDiv.style.width = "734px";
-		svgDiv.style.height = "266px";
-		
-	}else if(svgWidth>550){
-		svgAuto.style.width = 550;
-		svgAuto.style.height = 177;
-		svgAuto.innerHTML = '<image xlink:href="img/maps/level_7_office_map.png" width="550px" height="177px">';
-		
-//		svgDiv.style.width = "551px";
-		svgDiv.style.height = "207px";
-		
-	}
-	
-	
-}
+///** 
+// * 自定义的设置svg和外层div宽高的函数
+// */
+//
+//function setSvgDivWidthHeight(){
+//	
+//	/* col-lg: 901 x 320;  SVG: 900 x 290
+//	 * col-md: 734 x 266;  SVG: 733 x 236
+//	 * col-sm: 551 x 207;  SVG: 550 x 177
+//	 * 
+//	 * */
+//	
+//	var svgAuto = document.getElementById("svgAuto");
+//	
+//	var svgDiv = document.getElementById("svgDiv");
+//	
+//	if(svgWidth>900){
+//		svgAuto.style.width = 900;
+//		svgAuto.style.height = 290;
+//		svgAuto.innerHTML = '<image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">';
+//		
+//		/* 只能设置高度，让div适配svg，如果同时设置宽度，则下一轮询时，读取的宽度值会固定，从而无法缩放svg */
+////		svgDiv.style.width = "901px";
+//		svgDiv.style.height = "320px";
+//		
+//	}else if(svgWidth>733){
+//		svgAuto.style.width = 733;
+//		svgAuto.style.height = 236;
+//		svgAuto.innerHTML = '<image xlink:href="img/maps/level_7_office_map.png" width="733px" height="236px">';
+//		
+////		svgDiv.style.width = "734px";
+//		svgDiv.style.height = "266px";
+//		
+//	}else if(svgWidth>550){
+//		svgAuto.style.width = 550;
+//		svgAuto.style.height = 177;
+//		svgAuto.innerHTML = '<image xlink:href="img/maps/level_7_office_map.png" width="550px" height="177px">';
+//		
+////		svgDiv.style.width = "551px";
+//		svgDiv.style.height = "207px";
+//		
+//	}
+//}
 
 /** 
  * 自定义清地图函数
  */
 
 function cleanSvg(){
+	
+	getDivWidthandHeight();
+	
 	var svgAuto = document.getElementById("svgAuto");
 
+	/* 由于svg没有innerHTML，所以需要通过div节点来转换一下, 详见博客解释:  */
+	/* 三种大小的地图 */
+	var mapBg = '<image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">';
+	var mapMd = '<image xlink:href="img/maps/level_7_office_map.png" width="733px" height="236px">';
+	var mapSm = '<image xlink:href="img/maps/level_7_office_map.png" width="550px" height="177px">';
+    /* 创建用于转换的div节点 */
+    var dummyBg = document.createElement('div');
+    var dummyMd = document.createElement('div');
+    var dummySm = document.createElement('div');
+    /* 向其中添加svg节点，并把内容加入svg子节点 */
+    dummyBg.innerHTML = '<svg>' + mapBg + '</svg>';
+    dummyMd.innerHTML = '<svg>' + mapMd + '</svg>';
+    dummySm.innerHTML = '<svg>' + mapSm + '</svg>';
+    /* 获取map的html内容 */
+    var svgChildNodesBg = dummyBg.childNodes[0].childNodes;
+    var svgChildNodesMd = dummyMd.childNodes[0].childNodes;
+    var svgChildNodesSm = dummySm.childNodes[0].childNodes;
+	
 	/* 清地图上轨迹 */
 	if(svgWidth>900){
-		svgAuto.innerHTML = '<image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">';
+		svgAuto.replaceChild(svgChildNodesBg[0],svgAuto.lastChild);
 	}else if(svgWidth>733){
-		svgAuto.innerHTML = '<image xlink:href="img/maps/level_7_office_map.png" width="733px" height="236px">';
+		svgAuto.replaceChild(svgChildNodesMd[0],svgAuto.lastChild);
 	}else if(svgWidth>550){
-		svgAuto.innerHTML = '<image xlink:href="img/maps/level_7_office_map.png" width="550px" height="177px">';
+		svgAuto.replaceChild(svgChildNodesSm[0],svgAuto.lastChild);
 	}
+	
 }
 
 
@@ -196,26 +229,33 @@ function AjaxMap(){
 		dataType : 'json',
 		success : 
 			function(data) {
+				/* 取后台传的JSON值 */
+				var dataEval = eval(data);
 				
 				/* 取div宽高，判断屏幕大小，由此设置地图大小 */
 				getDivWidthandHeight();
-				setSvgDivWidthHeight();
-				
-				/* 取后台传的JSON值 */
-				var dataEval = eval(data);
-
-				/* 赋值坐标 */
-				xNew = dataEval.coordinateX;
-				yNew = dataEval.coordinateY;
+				/* 判断当前屏幕尺寸，确定坐标比例 */
+				if(svgWidth>900){
+					/* 赋值坐标 */
+					xNew = dataEval.coordinateX;
+					yNew = dataEval.coordinateY;
+				}else if(svgWidth>733){
+					/* 赋值坐标 */
+					xNew = dataEval.coordinateX * 733/900;
+					yNew = dataEval.coordinateY * 733/900;
+				}else if(svgWidth>550){
+					/* 赋值坐标 */
+					xNew = dataEval.coordinateX * 550/900;
+					yNew = dataEval.coordinateY * 550/900;
+				}
 
 				/* 判断是否为第一个点，第一个点不画轨迹 */
 				if (xOld == null || yOld == null) {
 					xOld = xNew;
 					yOld = yNew;
 					}
+				/* 如果不是第一个点，则正常画坐标 */
 				if (xNew != xOld || yNew != yOld) {
-					
-					
 					
 					/* 显示坐标点 */
 					ShowDevice(xNew, yNew);
@@ -232,7 +272,6 @@ function AjaxMap(){
 					document.getElementById("coordinateYLabel").innerHTML=yNew;
 				}
 				
-				
 			},
 		error : 
 			function(XMLHttpRequest, textStatus, errorThrown) {
@@ -246,9 +285,6 @@ function AjaxMap(){
  * 自定义的轮询函数
  */
 
-//全局变量，后面才可以clearInterval
-var AjaxTimeout;
-var AjaxInterval;
 
 function enter() {
 
@@ -276,14 +312,13 @@ $(function(){
 		xOld = null;
 		yOld = null;
 
-		/* 清轮询设置，否则轮询函数会增多 */
+		/* 清轮询，否则每点一次按钮都会增加一个轮询函数，使得画坐标速度倍增，逻辑错误 */
 		clearInterval(AjaxInterval);
 
 		/* 清地图上轨迹 */
 		cleanSvg();
-//		svgAuto.innerHTML = '<image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">';
 
 		/* 执行轮询 */
-		enter()
+		enter();
 	}); 
 });

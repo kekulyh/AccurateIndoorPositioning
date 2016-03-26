@@ -170,6 +170,7 @@
                         </svg>
                     </div>
                     <br>
+                    
                     <!-- 显示坐标 -->
                     <div>
                     	<div class="bg-info text-left"  >Coordinate X : <span id="coordinateXLabel"></span></div>
@@ -232,6 +233,7 @@
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
 <script src="js/monitorforzhaidi.js"></script>
+<script src="js/svg_suit_screen.js"></script>
 
 <!--Google Analytics: change UA-XXXXX-X to be your site's ID.-->
 <script>
