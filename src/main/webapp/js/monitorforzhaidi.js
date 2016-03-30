@@ -125,7 +125,7 @@ function cleanSvg(){
 	
 	var svgAuto = document.getElementById("svgAuto");
 
-	/* 由于svg没有innerHTML，所以需要通过div节点来转换一下, 详见博客解释:  */
+	/* 由于svg没有innerHTML，所以需要通过div节点来转换一下, 详见博客解释: http://blog.csdn.net/kekulyh/article/details/50986832 */
 	/* 三种大小的地图 */
 	var mapBg = '<image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">';
 	var mapMd = '<image xlink:href="img/maps/level_7_office_map.png" width="733px" height="236px">';
