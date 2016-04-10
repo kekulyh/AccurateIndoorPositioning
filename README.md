@@ -31,6 +31,11 @@ Accurate Indoor Positioning Interface.<br>
 	* views为各个页面的jsp文件夹
 
 ****
+##Update
+* 2016/04/10
+	* 修改js文件，提供android端调用的monitor页面及js方法。
+
+****
 ##Sketch
 
 #####Home Page
