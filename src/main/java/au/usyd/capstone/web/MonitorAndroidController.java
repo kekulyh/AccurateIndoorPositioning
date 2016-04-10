@@ -6,35 +6,33 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import au.usyd.capstone.domain.Device;
 import au.usyd.capstone.service.DeviceService;
 
 @Controller
-public class MonitorForZhaidiController {
-
+public class MonitorAndroidController {
 	@Autowired
 	private DeviceService deviceService;
 	
-	@RequestMapping(value="/monitorforzhaidi")
-	public ModelAndView monitor(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return new ModelAndView("monitorforzhaidi");
+	@RequestMapping(value="/monitorandroid")
+	public ModelAndView monitorAndroid(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return new ModelAndView("monitorandroid");
 	}
 	
-	@RequestMapping(value="/monitorforzhaidi", method=RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value="/monitorandroid", method=RequestMethod.POST, produces = "application/json")
 	//@ResponseBody将内容作为response的主体传回
 	@ResponseBody
-	public String monitortestpost() throws JsonProcessingException {
+	public String monitorAndroidAjax() throws JsonProcessingException {
 		
 		Device device = new Device();
 		
@@ -62,6 +60,4 @@ public class MonitorForZhaidiController {
 		
 	}
 	
-	
-
 }
