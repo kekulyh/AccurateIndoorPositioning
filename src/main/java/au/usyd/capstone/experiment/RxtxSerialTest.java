@@ -24,7 +24,7 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	// Create serial port
 	private SerialPort serialPort;
 	// Define local port name
-	private static final String PORT_NAMES[] = { 
+	private static final String PORT_NAMES[] = {
 			"/dev/cu.usbmodem1411", // Mac OS X
 			"COM3", // Windows
 	};
