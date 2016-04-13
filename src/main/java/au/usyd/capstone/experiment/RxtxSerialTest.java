@@ -39,7 +39,7 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	
 	/** variables for coordinate calculation */
 	// Array for storing the input string data
-	private static String[] array = {"0", "0", "1", "0", "0", "0"};
+	private static String[] array = {"0", "0", "1", "0", "0", "0", "0", "0", "0"};
 	// Input data split to string
 	private String a1 = "0";
 	private String a2 = "0";
@@ -47,32 +47,11 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	private String g1 = "0";
 	private String g2 = "0";
 	private String g3 = "0";
-	// parse string into double
-	private double accel1 = 0;
-	private double accel2 = 0;
-	private double accel3 = 1;
-	private double gyro1 = 0;
-	private double gyro2 = 0;
-	private double gyro3 = 0;
-	// current time
-	private static long currentTime;
-	// sampling time for gyro data
-	private static double gyroTime = 0.1;
-	// calculated acceleration data
-	private double accel = 0;
-	// calculated angle data
-	private static double anglex = 0;
-	private static double angley = 0;
-	private static double anglez = 0;
-	// defined step size 
-	private double step = 0.95;
-	// calculated real next step data
-	private double nextStepXReal = 0;
-	private double nextStepYReal = 0;
-	// converted next step on the UI
-	private double nextStepX = 0;
-	private double nextStepY = 0;
+	private String m1 = "0";
+	private String m2 = "0";
+	private String m3 = "0";
 	// static variable for DeviceDaoImpl calling
+	// Testing: use the fixed parameters
 	private static double coordinateX = 500;
 	private static double coordinateY = 120;
 	
@@ -204,67 +183,28 @@ public class RxtxSerialTest implements SerialPortEventListener {
 				g1 = array[3];
 				g2 = array[4];
 				g3 = array[5];
+				m1 = array[6];
+				m2 = array[7];
+				m3 = array[8];
 				
 				// call function for calculation
-				this.coordinateCalculation(a1, a2, a3, g1, g2, g3);
+//				Coordinate coordinate = CoordinateCalculation.coordinateCalculation(a1, a2, a3, g1, g2, g3);
+				
+				// quaternion (six axis) test
+//				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithQuaternionSixAxis(a1, a2, a3, g1, g2, g3);
+				
+				// quaternion (nine axis) test
+				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithQuaternionNineAxis(a1, a2, a3, g1, g2, g3, m1, m2, m3);
+				
+				// set coordinate
+				setCoordinateX(coordinate.getCoordinateX());
+				setCoordinateY(coordinate.getCoordinateY());
 				
 			} catch (Exception e) {
 				System.err.println("serialEvent error: "+e.toString());
 			}
 			
 		}
-		
-	}
-	
-	
-	/**
-	 * Calculate the coordinate.
-	 */
-	private void coordinateCalculation(String a1, String a2, String a3, String g1, String g2, String g3) {
-		
-		// parse input string to double variable
-		accel1 = Double.parseDouble(a1);
-		accel2 = Double.parseDouble(a2);
-		accel3 = Double.parseDouble(a3);
-		gyro1 = Double.parseDouble(g1)+0.463591837;
-		gyro2 = Double.parseDouble(g2)+0.896326531;
-		gyro3 = Double.parseDouble(g3)-0.122693878;
-		
-		// handle acceleration data
-		accel = Math.sqrt(Math.pow(accel1, 2) + Math.pow(accel2, 2) + Math.pow(accel3, 2)) - 1;
-		
-		// handle gyro data
-		anglex = anglex + gyro1 * gyroTime;
-		angley = angley + gyro2 * gyroTime;
-		anglez = anglez + gyro3 * gyroTime;
-		
-		if (accel >0.25) {
-			
-			// calculate real next step data
-			nextStepXReal = step * Math.cos(anglez * Math.PI / 180);
-			nextStepYReal = step * Math.sin(anglez * Math.PI / 180);
-			
-			// convert real data for displaying on UI
-			nextStepX = nextStepXReal * 250/12;
-			nextStepY = nextStepYReal * 250/12;
-			
-			// Stabilization.if time interval is larger than 500ms, update coordinate.
-			if( (int) (System.currentTimeMillis() - currentTime)>500){
-				// update coordinate
-				coordinateX = coordinateX - nextStepX;
-				coordinateY = coordinateY + nextStepY;
-			}
-			
-			// update current time when updating coordinate
-			currentTime = System.currentTimeMillis();
-			
-			// initialize the acceleration
-			accel = 0;
-		}
-		
-		// set the static coordinate variable
-		this.setCoordinateX(coordinateX);
-		this.setCoordinateY(coordinateY);
 		
 	}
 	

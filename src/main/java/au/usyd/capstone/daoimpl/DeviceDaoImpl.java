@@ -56,7 +56,7 @@ public class DeviceDaoImpl extends BaseDaoImpl<Device> implements DeviceDao {
 	
 		}else{		
 			//devicename不存在
-			
+			System.out.println("DeviceDaoImpl: cannot find device");
 		}
 		
 	}
