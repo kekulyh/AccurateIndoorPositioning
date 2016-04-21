@@ -34,6 +34,8 @@ Accurate Indoor Positioning Interface.<br>
 ##Update
 * 2016/04/10
 	* 修改js文件，提供android端调用的monitor页面及js方法。
+* 2016/4/21
+	* 待添加功能模块：3D显示gy87姿态，供调试。
 
 ****
 ##Sketch
