@@ -37,27 +37,27 @@ public class GestureController {
 	@ResponseBody
 	public String gesturePost() throws JsonProcessingException {
 		
-//		Device device = new Device();
-//		
-//		device.setDevicename("device1");
-//		
-//		this.deviceService.calculateCoordinate(device);
-//		
-//		Device deviceTest = this.deviceService.display(device);
+		Device device = new Device();
+		
+		device.setDevicename("device1");
+		
+		this.deviceService.calculateGesture(device);
+		
+		Device deviceTest = this.deviceService.display(device);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		
 //		String coordinateX = String.valueOf( deviceTest.getCoordinateX() );
 //		String coordinateY = String.valueOf( deviceTest.getCoordinateY() );
 		
-		String x = "1";
-		String y = "2";
-		String z = "3";
+		String yaw = String.valueOf( deviceTest.getYaw() );
+		String pitch = String.valueOf( deviceTest.getPitch() );
+		String roll = String.valueOf( deviceTest.getRoll() );
 		
 		//向HashMap中放入键值对
-		map.put("x", x);
-		map.put("y", y);
-		map.put("z", z);
+		map.put("yaw", yaw);
+		map.put("pitch", pitch);
+		map.put("roll", roll);
 		
 		//将HashMap转为JSON格式字符串
 		ObjectMapper mapper = new ObjectMapper();

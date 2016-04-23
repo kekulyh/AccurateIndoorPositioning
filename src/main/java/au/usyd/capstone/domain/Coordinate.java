@@ -1,4 +1,4 @@
-package au.usyd.capstone.experiment;
+package au.usyd.capstone.domain;
 
 // Coordinate object
 public class Coordinate {

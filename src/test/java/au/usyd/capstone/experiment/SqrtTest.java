@@ -2,6 +2,8 @@ package au.usyd.capstone.experiment;
 
 import org.junit.*;
 
+import au.usyd.capstone.utils.InvSqrt;
+
 public class SqrtTest{
 	
 	public SqrtTest() {

@@ -34,6 +34,12 @@ public class DeviceServiceImpl implements DeviceService {
 	}
 	
 	@Override
+	public void calculateGesture(Device device) {
+		// TODO Auto-generated method stub
+		deviceDao.calculateGesture(device);
+	}
+	
+	@Override
 	public Device display(Device device) {
 		// TODO Auto-generated method stub
 		return deviceDao.display(device);

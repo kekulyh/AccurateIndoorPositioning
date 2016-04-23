@@ -1,9 +1,9 @@
-package au.usyd.capstone.experiment;
+package au.usyd.capstone.utils;
 
 public class InvSqrt {
 	
 	// Fast Inverse Square Root - John Carmack
-	static float invSqrt( float number )
+	public static float invSqrt( float number )
 	{
 		 int i;
 		 float x2, y;

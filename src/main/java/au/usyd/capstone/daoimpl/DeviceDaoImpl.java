@@ -17,6 +17,11 @@ public class DeviceDaoImpl extends BaseDaoImpl<Device> implements DeviceDao {
 	private double coordinateX = 500;
 	private double coordinateY = 120;
 	
+	// yaw, pitch, roll
+	private double yaw = 0;
+	private double pitch = 0;
+	private double roll = 0;
+	
 	/** v1.2 获取坐标写入数据库 */
 	@Override
 	public void calculateCoordinate(Device device) {
@@ -50,6 +55,52 @@ public class DeviceDaoImpl extends BaseDaoImpl<Device> implements DeviceDao {
 			
 			d.setCoordinateX(coordinateX);
 			d.setCoordinateY(coordinateY);
+			
+			// 更新数据库原数据
+			this.update(d);
+	
+		}else{		
+			//devicename不存在
+			System.out.println("DeviceDaoImpl: cannot find device");
+		}
+		
+	}
+	
+	// 计算yaw, pitch, roll
+	@Override
+	public void calculateGesture(Device device) {
+		// TODO Auto-generated method stub
+		
+		Device d = new Device();
+		
+		String hql = "select d from au.usyd.capstone.domain.Device d where d.devicename='" + device.getDevicename() + "'";
+		
+		List<Device> list = this.findAll(hql);
+		
+		if (list != null && list.size()>0) {
+			
+			//devicename存在
+			
+			// 实例化
+			RxtxSerialTest rxtxSerialTest = new RxtxSerialTest();
+
+			// 初始化serial监听
+			rxtxSerialTest.initialize();
+			
+			//向Serial Port写入数据
+			rxtxSerialTest.writeData("R");
+			
+			// 获取计算后的坐标
+			yaw = rxtxSerialTest.getYaw();
+			pitch = rxtxSerialTest.getPitch();
+			roll = rxtxSerialTest.getRoll();
+			
+			// 坐标写入数据库
+			d = list.get(0);
+			
+			d.setYaw(yaw);
+			d.setPitch(pitch);
+			d.setRoll(roll);
 			
 			// 更新数据库原数据
 			this.update(d);

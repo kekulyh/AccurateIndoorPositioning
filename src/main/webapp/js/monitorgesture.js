@@ -128,11 +128,11 @@ function AjaxMap(){
 				/* 取后台传的JSON值 */
 				var dataEval = eval(data);
 				
-				x = dataEval.x;
-				y = dataEval.y;
-				z = dataEval.z;
+				yaw = dataEval.yaw * Math.PI/180;
+				pitch = dataEval.pitch * Math.PI/180;
+				roll = dataEval.roll * Math.PI/180;
 				
-				node.setRotation3d(x+Math.random(), y+Math.random(), z+Math.random());
+				node.setRotation3d(pitch, roll, yaw);
 			},
 		error : 
 			function(XMLHttpRequest, textStatus, errorThrown) {

@@ -1,24 +1,39 @@
 package au.usyd.capstone.experiment;
 
+import au.usyd.capstone.domain.Quaternion;
+
 // Quaternion Algorithm
 public class QuaternionAlgorithm {
 	
+	// current time
+	private static long currentTime;
+	
 	// sample frequency in Hz
-	private static float sampleFreq = 512.0f;
+	private static double sampleFreq = 10.0f;
 	
 	// 2 * proportional gain (Kp) 比例增益
 	// 与传感器有关，需查阅sensor的datasheet
-	private volatile static float beta = 0.1f;
+	private volatile static double beta = 0.1f;
 	
 	// quaternion of sensor frame relative to auxiliary frame
-	private volatile static float q0 = 1.0f;
-	private volatile static float q1 = 0.0f;
-	private volatile static float q2 = 0.0f;
-	private volatile static float q3 = 0.0f;
+	private volatile static double q0 = 1.0f;
+	private volatile static double q1 = 0.0f;
+	private volatile static double q2 = 0.0f;
+	private volatile static double q3 = 0.0f;
 	
 
 	// Algorithm calculating Quaternion with accelration and gyro
 	public static Quaternion calculateQuaternionSixAxis(double accel1, double accel2, double accel3, double gyro1, double gyro2, double gyro3){
+		
+		if(currentTime != 0){
+			long sampleTime = System.currentTimeMillis() - currentTime;
+//			System.out.println("Sample time: "+sampleTime);
+			sampleFreq = 1.0 * 1000 / sampleTime;
+//			System.out.println("Sample Freq: "+sampleFreq);
+		}
+		
+		// update current time when updating coordinate
+		currentTime = System.currentTimeMillis();
 		
 		double normalizedDenominator;
 		double s0, s1, s2, s3;
@@ -103,6 +118,16 @@ public class QuaternionAlgorithm {
 	
 	// Algorithm calculating Quaternion with accelration, gyro and magnetometer
 	public static Quaternion calculateQuaternionNineAxis(double accel1, double accel2, double accel3, double gyro1, double gyro2, double gyro3, double mag1, double mag2, double mag3){
+		
+		if(currentTime != 0){
+			long sampleTime = System.currentTimeMillis() - currentTime;
+//			System.out.println("Sample time: "+sampleTime);
+			sampleFreq = 1.0 * 1000 / sampleTime;
+//			System.out.println("Sample Freq: "+sampleFreq);
+		}
+		
+		// update current time when updating coordinate
+		currentTime = System.currentTimeMillis();
 		
 		double normalizedDenominator;
 		double s0, s1, s2, s3;

@@ -22,6 +22,10 @@ public class Device extends BaseDomain {
 	
 	private double coordinateY;
 	
+	private double yaw;
+	private double pitch;
+	private double roll;
+	
 	private String description;
 	
 	
@@ -80,5 +84,30 @@ public class Device extends BaseDomain {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public double getYaw() {
+		return yaw;
+	}
+
+	public void setYaw(double yaw) {
+		this.yaw = yaw;
+	}
+
+	public double getPitch() {
+		return pitch;
+	}
+
+	public void setPitch(double pitch) {
+		this.pitch = pitch;
+	}
+
+	public double getRoll() {
+		return roll;
+	}
+
+	public void setRoll(double roll) {
+		this.roll = roll;
+	}
+	
 	
 }

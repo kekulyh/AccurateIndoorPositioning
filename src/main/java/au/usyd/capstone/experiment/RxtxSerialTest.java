@@ -18,6 +18,9 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 import java.util.Enumeration;
 
+import au.usyd.capstone.domain.Coordinate;
+import au.usyd.capstone.domain.Gesture;
+
 public class RxtxSerialTest implements SerialPortEventListener {
 	
 	/** variables for reading serial port data */
@@ -40,16 +43,47 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	/** variables for coordinate calculation */
 	// Array for storing the input string data
 	private static String[] array = {"0", "0", "1", "0", "0", "0", "0", "0", "0"};
-	// Input data split to string
-	private String a1 = "0";
-	private String a2 = "0";
-	private String a3 = "1";
-	private String g1 = "0";
-	private String g2 = "0";
-	private String g3 = "0";
-	private String m1 = "0";
-	private String m2 = "0";
-	private String m3 = "0";
+//	// Input data split to string
+//	private String a1 = "0";
+//	private String a2 = "0";
+//	private String a3 = "1";
+//	private String g1 = "0";
+//	private String g2 = "0";
+//	private String g3 = "0";
+//	private String m1 = "0";
+//	private String m2 = "0";
+//	private String m3 = "0";
+	
+	// gesture
+	private static double yaw = 0;
+	private static double pitch = 0;
+	private static double roll = 0;
+	
+	public static double getYaw() {
+		return yaw;
+	}
+
+	public static void setYaw(double yaw) {
+		RxtxSerialTest.yaw = yaw;
+	}
+
+	public static double getPitch() {
+		return pitch;
+	}
+
+	public static void setPitch(double pitch) {
+		RxtxSerialTest.pitch = pitch;
+	}
+
+	public static double getRoll() {
+		return roll;
+	}
+
+	public static void setRoll(double roll) {
+		RxtxSerialTest.roll = roll;
+	}
+
+
 	// static variable for DeviceDaoImpl calling
 	// Testing: use the fixed parameters
 	private static double coordinateX = 500;
@@ -171,34 +205,50 @@ public class RxtxSerialTest implements SerialPortEventListener {
 			try {
 				// read line data to string
 				String inputLine = input.readLine();
-//				System.out.println("Input Data: "+ inputLine );
+//				System.out.println("InputLine: "+ inputLine );
 				
 				// split data into array
 				array = inputLine.split("\\\t");
 				
 				// set string value
-				a1 = array[0];
-				a2 = array[1];
-				a3 = array[2];
-				g1 = array[3];
-				g2 = array[4];
-				g3 = array[5];
-				m1 = array[6];
-				m2 = array[7];
-				m3 = array[8];
+//				a1 = array[0];
+//				a2 = array[1];
+//				a3 = array[2];
+//				g1 = array[3];
+//				g2 = array[4];
+//				g3 = array[5];
+//				m1 = array[6];
+//				m2 = array[7];
+//				m3 = array[8];
 				
-				// call function for calculation
-//				Coordinate coordinate = CoordinateCalculation.coordinateCalculation(a1, a2, a3, g1, g2, g3);
+//				for(int i = 0; i<9; i++){
+//					System.out.println(array[i]);
+//				}
 				
-				// quaternion (six axis) test
-//				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithQuaternionSixAxis(a1, a2, a3, g1, g2, g3);
 				
-				// quaternion (nine axis) test
-				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithQuaternionNineAxis(a1, a2, a3, g1, g2, g3, m1, m2, m3);
+				// call function for calculation (simple algorithm for testing)
+//				Coordinate coordinate = CoordinateCalculation.coordinateCalculation(array[0], array[1], array[2], array[3], array[4], array[5]);
+				
+				// coordinate by quaternion (six axis)
+//				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithQuaternionSixAxis(array[0], array[1], array[2], array[3], array[4], array[5]);
+				
+				// coordinate by quaternion (nine axis)
+//				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithQuaternionNineAxis(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8]);
+				
+				// gesture by quaternion (nine axis)
+				Gesture gesture = CoordinateCalculation.gestureCalculationWithQuaternionNineAxis(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8]);
+				
+				// gesture by quaternion (six axis)
+//				Gesture gesture = CoordinateCalculation.gestureCalculationWithQuaternionSixAxis(array[0], array[1], array[2], array[3], array[4], array[5]);
+				
+				// set yaw, pitch, roll
+				setYaw(gesture.getYaw());
+				setPitch(gesture.getPitch());
+				setRoll(gesture.getRoll());
 				
 				// set coordinate
-				setCoordinateX(coordinate.getCoordinateX());
-				setCoordinateY(coordinate.getCoordinateY());
+//				setCoordinateX(coordinate.getCoordinateX());
+//				setCoordinateY(coordinate.getCoordinateY());
 				
 			} catch (Exception e) {
 				System.err.println("serialEvent error: "+e.toString());
