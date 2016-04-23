@@ -274,7 +274,7 @@ function enter() {
 		AjaxMap();
 	},100);
 
-	/* 设置每一秒轮询一次 */
+	/* 设置每0.1秒轮询一次 */
 	AjaxInterval = setInterval(function(){
 		AjaxMap();
 	},100);

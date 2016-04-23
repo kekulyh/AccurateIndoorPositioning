@@ -61,6 +61,8 @@
                                 <li><a href="monitor">Monitor</a></li>
                                 <li class="divider"></li>
                                 <li><a href="monitorforzhaidi">Monitor For Zhaidi</a></li>
+                                <li><a href="monitorgesture">Monitor Gesture</a></li>
+                                <li><a href="monitorandroid">Monitor For Android</a></li>
                             </ul>
                         </li>
 

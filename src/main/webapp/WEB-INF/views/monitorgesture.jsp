@@ -110,7 +110,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Monitor For Zhaidi</h1>
+                <h1>Monitor Gesture</h1>
             </div>
         </div>
     </div>
@@ -121,7 +121,7 @@
         <div class="row">
 
             <!-- Sidebar -->
-            <div class="col-md-2 col-sm-2 blog-sidebar">
+            <!-- <div class="col-md-2 col-sm-2 blog-sidebar">
                 <h4>Search devices</h4>
                 <form>
                     <div class="input-group">
@@ -140,51 +140,26 @@
                 	</ul>
                 </form>
                 
-            </div>
+            </div> -->
             <!-- End Sidebar -->
 
 			<!-- Map Content -->
-            <div class="col-md-10 col-sm-10">
+            <div class="col-md-12 col-sm-12">
                 <div class="blog-post blog-single-post">
 					<!-- 标题 -->
                     <div class="single-post-title" align="center">
-                        <h3>Level 7 Office Map</h3>
+                        <h3>Device Gesture</h3>
                     </div>
 					<!-- 分隔线 -->
                     <div class="single-post-info"></div>
-
-					<!-- SVG画板点击生成坐标点 -->
-                    <!-- <div class="single-post-image">
-                    	<h5 class="bg-primary">Click On Map To Draw Coordinates (Test)</h5>
-                        <svg id="svgMap" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:900px;height:290px;border:0px solid black;">
-                            <image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">
-                        </svg>
-                    </div> -->
                     
-                    <!-- 分隔线 -->
-                    <!-- <div class="single-post-info"></div> -->
-                    
-                    <!-- AJAX生成坐标点 -->
 					<div id="svgDiv" class="single-post-image">
-						<h5 class="bg-primary">Click Device Button To Draw Coordinates (Test)</h5>
-                        <svg id="svgAuto" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:900px;height:290px;border:0px solid black;">
-                            <image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">
-                        </svg>
+						<h5 class="bg-primary">Click Start Button To Monitor Gesture (Test)</h5>
+						
+						<p><iframe src="gesture" style="height:290px;width:1095px"></iframe></p>
+						
                     </div>
                     <br>
-                    
-                    <!-- 显示坐标 -->
-                    <div>
-                    	<div class="bg-info text-left"  >Coordinate X : <span id="coordinateXLabel"></span></div>
-                    	<div class="bg-info text-left"  >Coordinate Y : <span id="coordinateYLabel"></span></div>
-                    </div>
-                    
-                    <!-- 显示宽高 -->
-                    <div>
-                    	<div class="bg-info text-left"  >Width : <span id="divWidth"></span></div>
-                    	<div class="bg-info text-left"  >Height : <span id="divHeight"></span></div>
-                    </div>
-                    
 					<!-- 分隔线 -->
                     <div class="single-post-info"></div>
                 </div>
@@ -234,8 +209,7 @@
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.1.4.min.js"><\/script>')</script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
-<script src="js/monitorforzhaidi.js"></script>
-<script src="js/svg_suit_screen.js"></script>
+
 
 <!--Google Analytics: change UA-XXXXX-X to be your site's ID.-->
 <script>

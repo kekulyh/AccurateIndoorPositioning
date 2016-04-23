@@ -65,6 +65,8 @@
                                 <li><a href="monitor">Monitor</a></li>
                                 <li class="divider"></li>
                                 <li><a href="monitorforzhaidi">Monitor For Zhaidi</a></li>
+                                <li><a href="monitorgesture">Monitor Gesture</a></li>
+                                <li><a href="monitorandroid">Monitor For Android</a></li>
                             </ul>
                         </li>
 
@@ -134,7 +136,7 @@
                	
                 <form id="deviceform">
                 	<ul>
-                		<li><input type="button" class="btn btn-default" id="device1" name="device1" value="Device1 AJAX"/></li>
+                		<li><input type="button" class="btn btn-default" id="device1" name="device1" value="Device1"/></li>
                 	</ul>
                 </form>
                 
