@@ -12,7 +12,7 @@ Accurate Indoor Positioning Interface.<br>
 	* domain层为实体类
 	* service层为事务类
 	* web层为view类
-	* 串口接收数据的类放在experiment包下
+	* 串口接收数据的类及算法实现放在experiment包下
 
 * webapp结构简述如下：
 	* css结构：
@@ -24,18 +24,38 @@ Accurate Indoor Positioning Interface.<br>
 	* img结构：
 		* carousel为首页的carousel图片
 		* maps里存放室内地图图片
+		* hightopo为相应的3d姿态监测图片
 	* js结构：
 		* bootstrap.js为官方js文件
 		* monitor.js为monitor界面进行地图及坐标绘制的js文件
 		* svg_suit_screen.js为monitor界面的svg滑板适配屏幕的js文件
+		* hightopo为3d姿态监测的api
+		* monitorgesture.js为3d姿态监测的js文件
 	* views为各个页面的jsp文件夹
 
 ****
 ##Update
+* 2015/10/14
+	* 数据去抖动待实现
+* 2015/10/18
+	* 去抖动实现
+* 2015/10/24
+	* 算法初步完成
+* 2016/03/22
+	* 重写js方法，使svg能适配屏幕
+* 2016/03/26
+	* monitor页面svg及定位功能适配各种size的屏幕完成。
+* 2016/04/4
+	* 算法待改进
 * 2016/04/10
 	* 修改js文件，提供android端调用的monitor页面及js方法。
+* 2016/4/13
+	* 后端算法改进，添加四元数计算模块
 * 2016/4/21
-	* 待添加功能模块：3D显示gy87姿态，供调试。
+	* 待添加功能模块：3D显示姿态，供调试。
+* 2016/4/23
+	* 3D监测姿态功能实现，实时性优秀。
+	* pitch到达90度，yaw会瞬跳到180度，待解决。
 
 ****
 ##Sketch
@@ -47,6 +67,10 @@ Accurate Indoor Positioning Interface.<br>
 #####Monitor Page
 
 ![Monitor Page](https://github.com/kekulyh/AccurateIndoorPositioning/blob/master/pic/monitorpage.png "Monitor Page")
+
+#####Gesture Page
+
+![Gesture Page](https://github.com/kekulyh/AccurateIndoorPositioning/blob/master/pic/gesturepage.png "Gesture Page")
 
 #####Device Page
 
