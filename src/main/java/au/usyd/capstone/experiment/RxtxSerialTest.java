@@ -210,45 +210,26 @@ public class RxtxSerialTest implements SerialPortEventListener {
 				// split data into array
 				array = inputLine.split("\\\t");
 				
-				// set string value
-//				a1 = array[0];
-//				a2 = array[1];
-//				a3 = array[2];
-//				g1 = array[3];
-//				g2 = array[4];
-//				g3 = array[5];
-//				m1 = array[6];
-//				m2 = array[7];
-//				m3 = array[8];
-				
-//				for(int i = 0; i<9; i++){
-//					System.out.println(array[i]);
-//				}
-				
-				
-				// call function for calculation (simple algorithm for testing)
+//				// call function for calculation (simple algorithm for testing)
 //				Coordinate coordinate = CoordinateCalculation.coordinateCalculation(array[0], array[1], array[2], array[3], array[4], array[5]);
+//				
+//				// gesture by quaternion (six axis)
+//				Gesture gesture = CoordinateCalculation.gestureCalculationWithQuaternionSixAxis(array[0], array[1], array[2], array[3], array[4], array[5]);
 				
-				// coordinate by quaternion (six axis)
-//				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithQuaternionSixAxis(array[0], array[1], array[2], array[3], array[4], array[5]);
-				
-				// coordinate by quaternion (nine axis)
-//				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithQuaternionNineAxis(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8]);
 				
 				// gesture by quaternion (nine axis)
 				Gesture gesture = CoordinateCalculation.gestureCalculationWithQuaternionNineAxis(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8]);
-				
-				// gesture by quaternion (six axis)
-//				Gesture gesture = CoordinateCalculation.gestureCalculationWithQuaternionSixAxis(array[0], array[1], array[2], array[3], array[4], array[5]);
-				
-				// set yaw, pitch, roll
+				// set yaw, pitch, roll ( for DeviceDaoImpl.calculateGesture(device) )
 				setYaw(gesture.getYaw());
 				setPitch(gesture.getPitch());
 				setRoll(gesture.getRoll());
+//				System.out.println("Yaw: " + yaw + "Pitch: " + pitch + "Roll: " + roll);
 				
+				// coordinate by gesture ( for DeviceDaoImpl.calculateCoordinate(device) )
+				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithGesture(gesture, array[0], array[1], array[2]);
 				// set coordinate
-//				setCoordinateX(coordinate.getCoordinateX());
-//				setCoordinateY(coordinate.getCoordinateY());
+				setCoordinateX(coordinate.getCoordinateX());
+				setCoordinateY(coordinate.getCoordinateY());
 				
 			} catch (Exception e) {
 				System.err.println("serialEvent error: "+e.toString());

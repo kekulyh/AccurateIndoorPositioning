@@ -56,6 +56,9 @@ Accurate Indoor Positioning Interface.<br>
 * 2016/4/23
 	* 3D监测姿态功能实现，实时性优秀。
 	* pitch到达90度，yaw会瞬跳到180度，待解决。
+* 2016/5/01
+	* 算法改进，融合四元数计算坐标。
+	* yaw角瞬跳应该是万向锁(Gimbal Lock)问题，暂时没找到解决办法(球面线性插值Spherical Linear Interpolation可能可行)。
 
 ****
 ##Sketch

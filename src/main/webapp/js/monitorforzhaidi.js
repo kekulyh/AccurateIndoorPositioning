@@ -133,13 +133,21 @@ function ShowDevice(x, y){
 	/* 创建元素以添加图片 */
 	var svgImg = document.createElementNS(xmlns,"image");
 
-	/* 元素添加属性 */
+	/* 元素添加属性 (gait estimation method in CoordinateCalculation.coordinateCalculationWithGesture() ) */
 	svgImg.href.baseVal = "img/location.png" ;
 	svgImg.setAttributeNS(null,"x",coordinateX-7.5);
 	svgImg.setAttributeNS(null,"y",coordinateY-7.5);
 	svgImg.setAttributeNS(null,"height","15px");
 	svgImg.setAttributeNS(null,"width","15px");
+	
+//	/* 元素添加属性 (integration of accel and velocity method in CoordinateCalculation.coordinateCalculationWithGesture() ) */
+//	svgImg.href.baseVal = "img/location.png" ;
+//	svgImg.setAttributeNS(null,"x",coordinateX-2);
+//	svgImg.setAttributeNS(null,"y",coordinateY-2);
+//	svgImg.setAttributeNS(null,"height","4px");
+//	svgImg.setAttributeNS(null,"width","4px");
 
+	
 	/* 父元素加上新创建的元素 */
 	tSvgAuto.appendChild(svgImg);
 }

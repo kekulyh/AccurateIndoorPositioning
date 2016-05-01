@@ -7,18 +7,25 @@ public class Gesture {
 	private double pitch;
 	
 	private double roll;
+	
+	private Quaternion quaternion;
 
-	public Gesture(double yaw, double pitch, double roll) {
+	public Gesture(double yaw, double pitch, double roll, Quaternion quaternion) {
 		super();
 		this.yaw = yaw;
 		this.pitch = pitch;
 		this.roll = roll;
+		this.quaternion = quaternion;
 	}
+
+	
 
 	@Override
 	public String toString() {
-		return "Gesture [yaw=" + yaw + ", pitch=" + pitch + ", roll=" + roll + "]";
+		return "Gesture [yaw=" + yaw + ", pitch=" + pitch + ", roll=" + roll + ", quaternion=" + quaternion + "]";
 	}
+
+
 
 	public double getYaw() {
 		return yaw;
@@ -43,5 +50,13 @@ public class Gesture {
 	public void setRoll(double roll) {
 		this.roll = roll;
 	}
-		
+
+	public Quaternion getQuaternion() {
+		return quaternion;
+	}
+
+	public void setQuaternion(Quaternion quaternion) {
+		this.quaternion = quaternion;
+	}
+	
 }

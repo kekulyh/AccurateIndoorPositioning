@@ -132,7 +132,7 @@ function AjaxMap(){
 				pitch = dataEval.pitch * Math.PI/180;
 				roll = dataEval.roll * Math.PI/180;
 				
-				node.setRotation3d(pitch, roll, yaw);
+				node.setRotation3d(pitch, yaw, roll);
 			},
 		error : 
 			function(XMLHttpRequest, textStatus, errorThrown) {
