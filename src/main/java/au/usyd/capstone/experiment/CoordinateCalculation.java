@@ -198,7 +198,7 @@ public class CoordinateCalculation {
 	/**
 	 * Calculate the coordinate with Gesture (yaw, pitch, roll)
 	 */
-	public static Coordinate coordinateCalculationWithGesture(Gesture gesture, String a1, String a2, String a3) {
+	public static Coordinate coordinateCalculationWithGesture(Gesture gesture, String a1, String a2, String a3, double coordinateX, double coordinateY) {
 		
 		// parse input string to double variable
 		accel1 = Double.parseDouble(a1);

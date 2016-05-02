@@ -170,6 +170,36 @@ public class DeviceDaoImpl extends BaseDaoImpl<Device> implements DeviceDao {
 
 	}
 
+	@Override
+	public void resetCoordinate(Device device) {
+		// TODO Auto-generated method stub
+		Device d = new Device();
+		
+		String hql = "select d from au.usyd.capstone.domain.Device d where d.devicename='" + device.getDevicename() + "'";
+		
+		List<Device> list = this.findAll(hql);
+		
+		if (list != null && list.size()>0) {
+			//devicename存在
+			d = list.get(0);
+			
+			// reset coordinate value (testing value)
+			d.setCoordinateX(500);
+			d.setCoordinateY(120);
+			// 实例化
+			RxtxSerialTest rxtxSerialTest = new RxtxSerialTest();
+			rxtxSerialTest.setCoordinateX(500);
+			rxtxSerialTest.setCoordinateY(120);
+			
+			this.update(d);
+			
+		}else{
+			//devicename不存在
+			System.out.println("DeviceDaoImpl: cannot find device");
+			
+		}
+	}
+
 	
 	
 	

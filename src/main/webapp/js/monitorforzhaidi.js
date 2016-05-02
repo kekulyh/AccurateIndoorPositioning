@@ -199,7 +199,7 @@ function pageName()
 
 
 /**
- * 自定义的AJAX交互函数
+ * 自定义的AJAX交互函数 AjaxMap
  */
 function AjaxMap(){
 //	获取当前页面路径，作为ajax的url
@@ -271,10 +271,8 @@ function AjaxMap(){
 	}
 
 /**
- * 自定义的轮询函数
+ * 自定义的轮询函数 enter
  */
-
-
 function enter() {
 
 	/* 初始执行一次 */
@@ -292,7 +290,6 @@ function enter() {
 /**
  * 点击按钮执行轮询
  */
-
 $(function(){
 	$("#deviceform").click( function(){
 		var svgAuto = document.getElementById("svgAuto");
@@ -309,6 +306,112 @@ $(function(){
 
 		/* 执行轮询 */
 		enter();
+	}); 
+});
+
+
+/**
+ * 自定义的AJAX交互函数 AjaxReset
+ */
+function AjaxReset(){
+	//jQuery的AJAX方法
+	$.ajax({
+		type : 'POST',
+		url : 'resetcoordinate',
+		data : 'action=resetcoordinate',
+		contentType : 'application/json',
+		dataType : 'json',
+		success : 
+			function(data) {
+				/* 取后台传的JSON值 */
+				var dataEval = eval(data);
+				
+				/* 取div宽高，判断屏幕大小，由此设置地图大小 */
+				getDivWidthandHeight();
+				
+				/* 判断当前屏幕尺寸，确定坐标比例 */
+				if(svgWidth>900){
+					/* 赋值坐标 */
+					xNew = dataEval.coordinateX;
+					yNew = dataEval.coordinateY;
+				}else if(svgWidth>733){
+					/* 赋值坐标 */
+					xNew = dataEval.coordinateX * 733/900;
+					yNew = dataEval.coordinateY * 733/900;
+				}else if(svgWidth>550){
+					/* 赋值坐标 */
+					xNew = dataEval.coordinateX * 550/900;
+					yNew = dataEval.coordinateY * 550/900;
+				}else{
+					xNew = dataEval.coordinateX * svgWidth/900;
+					yNew = dataEval.coordinateY * svgWidth/900;
+				}
+
+				/* 判断是否为第一个点，第一个点不画轨迹 */
+				if (xOld == null || yOld == null) {
+					xOld = xNew;
+					yOld = yNew;
+					}
+				/* 如果不是第一个点，则正常画坐标 */
+				if (xNew != xOld || yNew != yOld) {
+					
+					/* 显示坐标点 */
+					ShowDevice(xNew, yNew);
+
+					/* 画轨迹 */
+					DrawLine();
+
+					/* 坐标赋给Old，为下一个轨迹使用 */
+					xOld = xNew;
+					yOld = yNew;
+
+					/* 显示坐标 */
+					document.getElementById("coordinateXLabel").innerHTML=xNew;
+					document.getElementById("coordinateYLabel").innerHTML=yNew;
+				}
+				
+			},
+		error : 
+			function(XMLHttpRequest, textStatus, errorThrown) {
+			document.getElementById("coordinateXLabel").innerHTML="null";
+			document.getElementById("coordinateYLabel").innerHTML="null";
+	    	}
+		});//ajax轮询函数结束
+	}
+
+/**
+ * 自定义的轮询函数 reset
+ */
+function reset() {
+	
+	/* 初始执行一次 */
+    AjaxTimeout = setTimeout(function() {
+		AjaxReset();
+	},100);
+    
+}
+
+/**
+ * 点击按钮重置device1原始值
+ */
+
+$(function(){
+	$("#resetform").click( function(){
+		
+		var svgAuto = document.getElementById("svgAuto");
+
+		/* 清现在坐标，第一个点不画轨迹 */
+		xOld = null;
+		yOld = null;
+
+		/* 清轮询，否则每点一次按钮都会增加一个轮询函数，使得画坐标速度倍增，逻辑错误 */
+		clearInterval(AjaxInterval);
+
+		/* 清地图上轨迹 */
+		cleanSvg();
+		
+		/* reset original coordinate value */
+		reset();
 	}); 
 });
 

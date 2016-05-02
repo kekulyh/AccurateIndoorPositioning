@@ -226,7 +226,7 @@ public class RxtxSerialTest implements SerialPortEventListener {
 //				System.out.println("Yaw: " + yaw + "Pitch: " + pitch + "Roll: " + roll);
 				
 				// coordinate by gesture ( for DeviceDaoImpl.calculateCoordinate(device) )
-				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithGesture(gesture, array[0], array[1], array[2]);
+				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithGesture(gesture, array[0], array[1], array[2], coordinateX, coordinateY);
 				// set coordinate
 				setCoordinateX(coordinate.getCoordinateX());
 				setCoordinateY(coordinate.getCoordinateY());

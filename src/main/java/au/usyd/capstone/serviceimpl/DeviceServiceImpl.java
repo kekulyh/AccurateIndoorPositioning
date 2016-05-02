@@ -40,6 +40,12 @@ public class DeviceServiceImpl implements DeviceService {
 	}
 	
 	@Override
+	public void resetCoordinate(Device device) {
+		// TODO Auto-generated method stub
+		deviceDao.resetCoordinate(device);
+	}
+	
+	@Override
 	public Device display(Device device) {
 		// TODO Auto-generated method stub
 		return deviceDao.display(device);
@@ -91,9 +97,6 @@ public class DeviceServiceImpl implements DeviceService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
-
 	
 	
 }

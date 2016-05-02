@@ -139,6 +139,11 @@
                 		<li><input type="button" class="btn btn-default" id="device1" name="device1" value="Device1"/></li>
                 	</ul>
                 </form>
+                <form id="resetform">
+                	<ul>
+                		<li><input type="button" class="btn btn-default" id="resetdevice1" name="resetdevice1" value="Reset Device1"/></li>
+                	</ul>
+                </form>
                 
             </div>
             <!-- End Sidebar -->

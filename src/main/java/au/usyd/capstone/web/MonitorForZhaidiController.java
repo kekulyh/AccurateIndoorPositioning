@@ -62,6 +62,35 @@ public class MonitorForZhaidiController {
 		
 	}
 	
-	
+	@RequestMapping(value="/resetcoordinate", method=RequestMethod.POST, produces = "application/json")
+	//@ResponseBody将内容作为response的主体传回
+	@ResponseBody
+	public String resetCoordinate() throws JsonProcessingException {
+		
+		Device device = new Device();
+		
+		device.setDevicename("device1");
+		
+		this.deviceService.resetCoordinate(device);
+		
+		Device deviceTest = this.deviceService.display(device);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		String coordinateX = String.valueOf( deviceTest.getCoordinateX() );
+		String coordinateY = String.valueOf( deviceTest.getCoordinateY() );
+		
+		//向HashMap中放入坐标键值对
+		map.put("coordinateX", coordinateX);
+		map.put("coordinateY", coordinateY);
+		
+		//将HashMap转为JSON格式字符串
+		ObjectMapper mapper = new ObjectMapper();
+		String str = mapper.writeValueAsString(map);
+		//System.out.println(str);
+		
+		return str;
+		
+	}
 
 }

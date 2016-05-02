@@ -8,6 +8,8 @@ public interface DeviceService extends BaseService<Device> {
 	
 	public void calculateGesture(Device device);
 	
+	public void resetCoordinate(Device device);
+	
 	public Device display(Device device);
 	
 	public Device deviceAdd(Device device);
