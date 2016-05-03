@@ -28,6 +28,7 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	private SerialPort serialPort;
 	// Define local port name
 	private static final String PORT_NAMES[] = {
+			"/dev/cu.usbserial-AL00N5R9", // xBee
 			"/dev/cu.usbmodem1411", // Mac OS X
 			"COM3", // Windows
 	};
@@ -38,7 +39,7 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	// Define timeout milliseconds while waiting for port open
 	private static final int TIME_OUT = 2000;
 	// Define BAUD rate
-	private static final int DATA_RATE = 38400;
+	private static final int DATA_RATE = 115200;
 	
 	/** variables for coordinate calculation */
 	// Array for storing the input string data
