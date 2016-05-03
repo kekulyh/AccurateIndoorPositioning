@@ -59,6 +59,9 @@ Accurate Indoor Positioning Interface.<br>
 * 2016/5/01
 	* 算法改进，融合四元数计算坐标。
 	* yaw角瞬跳应该是万向锁(Gimbal Lock)问题，暂时没找到解决办法(球面线性插值Spherical Linear Interpolation可能可行)。
+* 2016/05/03
+	* 无线模块加入，改动端口设置。
+	* 姿态监控页面微调。
 
 ****
 ##Sketch
