@@ -1,35 +1,39 @@
 var node;
 
 /** 
+ * 供android端调用
+ */
+
+/** 
  * 初始化Graph3dView
  */
 function init(){
-	items = [
-             {
-                 label: 'Start',
-                 groupId: 'monitorgesture',
-                 action: function(){
-//                     alert("start");
-                	 start();
-                 }
-             },
-             {
-                 label: 'Stop',
-                 groupId: 'monitorgesture',
-                 selected: true,
-                 action: function(){
-//                	 alert("stop");
-                	 stop();
-                 }
-             },
-         ];
+//	items = [
+//             {
+//                 label: 'Start',
+//                 groupId: 'monitorgesture',
+//                 action: function(){
+////                     alert("start");
+//                	 start();
+//                 }
+//             },
+//             {
+//                 label: 'Stop',
+//                 groupId: 'monitorgesture',
+//                 selected: true,
+//                 action: function(){
+////                	 alert("stop");
+//                	 stop();
+//                 }
+//             },
+//         ];
 
-         var toolbar = new ht.widget.Toolbar(items);
+//         var toolbar = new ht.widget.Toolbar(items);
          dataModel = new ht.DataModel();
          var g3d = new ht.graph3d.Graph3dView(dataModel);
 
          borderPane = new ht.widget.BorderPane();
-         borderPane.setTopView(toolbar);
+//         borderPane.setTopView(toolbar);
          borderPane.setCenterView(g3d);
 
          view = borderPane.getView();

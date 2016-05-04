@@ -62,6 +62,8 @@ Accurate Indoor Positioning Interface.<br>
 * 2016/05/03
 	* 无线模块加入，改动端口设置。
 	* 姿态监控页面微调。
+* 2016/05/04
+	* 微调monitorgesture.js，提供android调用的controller
 
 ****
 ##Sketch
