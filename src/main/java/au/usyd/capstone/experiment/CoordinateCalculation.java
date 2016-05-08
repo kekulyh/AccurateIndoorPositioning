@@ -212,7 +212,7 @@ public class CoordinateCalculation {
 		if(yaw<0){
 			yaw += (double)360;
 		}
-		System.out.println("Yaw: " + yaw);
+//		System.out.println("Yaw: " + yaw);
 		
 		// Get quaternion from gesture
 		Quaternion quaternion = gesture.getQuaternion();
@@ -231,7 +231,7 @@ public class CoordinateCalculation {
 		
 		// Transfer 4-dimensional data to 3-dimensional 
 		double[] accleEarthFrame = {accelEarthFramFourDimension.getQ1(), accelEarthFramFourDimension.getQ2(), accelEarthFramFourDimension.getQ3()};
-		System.out.println("Accel[0]: " + accleEarthFrame[0] + "; Accel[1]: " + accleEarthFrame[1] + "; Accel[2]: " + accleEarthFrame[2]);
+//		System.out.println("Accel[0]: " + accleEarthFrame[0] + "; Accel[1]: " + accleEarthFrame[1] + "; Accel[2]: " + accleEarthFrame[2]);
 		
 		// get samplePeriod
 		if(currentPeriod != 0){
@@ -253,7 +253,7 @@ public class CoordinateCalculation {
 			// calculate real next step data
 			nextStepXReal = step * Math.sin( (yaw + angleSensorToMap) * Math.PI / 180);
 			nextStepYReal = step * Math.cos( (yaw + angleSensorToMap) * Math.PI / 180);
-			System.out.println("nextStepXReal: " + nextStepXReal + "; nextStepYReal: " + nextStepYReal);
+//			System.out.println("nextStepXReal: " + nextStepXReal + "; nextStepYReal: " + nextStepYReal);
 			
 			// convert real data for displaying on UI
 			nextStepX = nextStepXReal * 250/12;
