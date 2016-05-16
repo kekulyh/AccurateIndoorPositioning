@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.*;
 
 import au.usyd.capstone.domain.Device;
 import au.usyd.capstone.service.DeviceService;
+import au.usyd.capstone.utils.LogCoordinate;
 
 @Controller
 public class MonitorForZhaidiController {
@@ -48,6 +49,13 @@ public class MonitorForZhaidiController {
 		
 		String coordinateX = String.valueOf( deviceTest.getCoordinateX() );
 		String coordinateY = String.valueOf( deviceTest.getCoordinateY() );
+		
+		try {
+			LogCoordinate.log("x: "+coordinateX +"; y: " +coordinateY);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//向HashMap中放入坐标键值对
 		map.put("coordinateX", coordinateX);

@@ -110,7 +110,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Monitor For Zhaidi</h1>
+                <h1>Monitor Coordinate</h1>
             </div>
         </div>
     </div>
@@ -141,7 +141,7 @@
                 </form>
                 <form id="resetform">
                 	<ul>
-                		<li><input type="button" class="btn btn-default" id="resetdevice1" name="resetdevice1" value="Reset Device1"/></li>
+                		<li><input type="button" class="btn btn-danger" id="resetdevice1" name="resetdevice1" value="Reset Device1"/></li>
                 	</ul>
                 </form>
                 

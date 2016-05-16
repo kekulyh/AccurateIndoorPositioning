@@ -105,7 +105,7 @@ public class DeviceDaoImpl extends BaseDaoImpl<Device> implements DeviceDao {
 			// 更新数据库原数据
 			this.update(d);
 	
-		}else{		
+		}else{
 			//devicename不存在
 			System.out.println("DeviceDaoImpl: cannot find device");
 		}

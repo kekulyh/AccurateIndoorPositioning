@@ -65,6 +65,9 @@ Accurate Indoor Positioning Interface.<br>
 * 2016/05/04
 	* 微调monitorgesture.js，提供android调用的controller
 
+* 2016/05/16
+	* 提供coordinate的log功能，用于分析误差
+
 ****
 ##Sketch
 
