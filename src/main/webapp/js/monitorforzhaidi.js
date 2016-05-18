@@ -199,13 +199,13 @@ function pageName()
 
 
 /**
- * 自定义的AJAX交互函数 AjaxMap
+ * Interworking function AjaxMap
  */
 function AjaxMap(){
-//	获取当前页面路径，作为ajax的url
+	// retrieve current page name as url
 	var currentPage = pageName();
 	
-	//jQuery的AJAX方法
+	// jQuery AJAX method
 	$.ajax({
 		type : 'POST',
 		url : ''+ currentPage +'',
@@ -214,23 +214,23 @@ function AjaxMap(){
 		dataType : 'json',
 		success : 
 			function(data) {
-				/* 取后台传的JSON值 */
+				/* retrieve JSON data from server */
 				var dataEval = eval(data);
 				
-				/* 取div宽高，判断屏幕大小，由此设置地图大小 */
+				/* get div width and height, determine the screen size and set map size */
 				getDivWidthandHeight();
 				
-				/* 判断当前屏幕尺寸，确定坐标比例 */
+				/* determine screen size and coordinate scale */
 				if(svgWidth>900){
-					/* 赋值坐标 */
+					/* set coordinate */
 					xNew = dataEval.coordinateX;
 					yNew = dataEval.coordinateY;
 				}else if(svgWidth>733){
-					/* 赋值坐标 */
+					/* set coordinate */
 					xNew = dataEval.coordinateX * 733/900;
 					yNew = dataEval.coordinateY * 733/900;
 				}else if(svgWidth>550){
-					/* 赋值坐标 */
+					/* set coordinate */
 					xNew = dataEval.coordinateX * 550/900;
 					yNew = dataEval.coordinateY * 550/900;
 				}else{
@@ -238,25 +238,25 @@ function AjaxMap(){
 					yNew = dataEval.coordinateY * svgWidth/900;
 				}
 
-				/* 判断是否为第一个点，第一个点不画轨迹 */
+				/* if first spot, do not draw trace */
 				if (xOld == null || yOld == null) {
 					xOld = xNew;
 					yOld = yNew;
 					}
-				/* 如果不是第一个点，则正常画坐标 */
+				/* if not first spot, normal drawing */
 				if (xNew != xOld || yNew != yOld) {
 					
-					/* 显示坐标点 */
+					/* display coordinate */
 					ShowDevice(xNew, yNew);
 
-					/* 画轨迹 */
+					/* draw traces */
 					DrawLine();
 
-					/* 坐标赋给Old，为下一个轨迹使用 */
+					/* set coordianteOld, for determining next trace */
 					xOld = xNew;
 					yOld = yNew;
 
-					/* 显示坐标 */
+					/* display coordinate number */
 					document.getElementById("coordinateXLabel").innerHTML=xNew;
 					document.getElementById("coordinateYLabel").innerHTML=yNew;
 				}
@@ -267,7 +267,7 @@ function AjaxMap(){
 			document.getElementById("coordinateXLabel").innerHTML="null";
 			document.getElementById("coordinateYLabel").innerHTML="null";
 	    	}
-		});//ajax轮询函数结束
+		});// ajax interval end
 	}
 
 /**

@@ -4,8 +4,8 @@ Accurate Indoor Positioning Interface.<br>
 
 ****
 ##Features
-* monitor功能目前基于usb串口数据读取，使用了Rxtx替代原生的串口api。读取速度设定在0.1s，刷新ui的速度设定在1s，可以随项目实际情况进行调整。
-* usb传输换成无线传输，可以正常工作。
+* monitor功能目前基于串口数据读取，使用了XBee模块无线传输，使用了Rxtx替代原生的串口api。读取速度设定在0.1s，刷新ui的速度设定在1s，可以随项目实际情况进行调整。
+* usb传输或者无线传输，均可以正常工作。
 * 使用前需要添加`librxtxSerial.jnilib`和`RXTXcomm.jar`两个文件至`/Library/Java/Extensions `文件夹下。请在`rxtx-2.2pre2`文件夹下寻找，也可以自己生成，详情请参考Rxtx官网的指南：[Rxtx](http://rxtx.qbang.org).
 * java包结构简述如下：
 	* dao层为数据访问类

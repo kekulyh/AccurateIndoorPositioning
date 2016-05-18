@@ -35,29 +35,30 @@ var svgChildNodesMd = dummyMd.childNodes[0].childNodes;
 var svgChildNodesSm = dummySm.childNodes[0].childNodes;
 var svgChildNodesFlex = dummyFlex.childNodes[0].childNodes;
 
-/* 根据屏幕大小设置svg与map */
+/* set svg and map due to the screen size */
 if(svgWidth>900){
+	/* suit the large screen */
 	svgAuto.style.width = 900;
 	svgAuto.style.height = 290;
-
-	/* 替换最后一个子节点内容 */
+	/* replace the last child node of svg */
 	svgAuto.replaceChild(svgChildNodesBg[0],svgAuto.lastChild);
-    
-	/* firefox上需要同时设置高度，否则div高度不会适配地图尺寸 */
-	/* 只能设置div高度，让div适配svg，如果同时设置宽度，则下一轮询时，读取的宽度值会固定，从而无法缩放svg */
+	/* firefox: need to set the div height meanwhile, otherwise the div cannot change size */
+	/* must only set the height of div, let the div suit svg. If set width of div, then width read in next loop will be fixed. */
 	svgDiv.style.height = "320px";
 }else if(svgWidth>733){
+	/* suit the middle screen */
 	svgAuto.style.width = 733;
 	svgAuto.style.height = 236;
 	svgAuto.replaceChild(svgChildNodesMd[0],svgAuto.lastChild);
 	svgDiv.style.height = "266px";
 }else if(svgWidth>550){
+	/* suit the small screen */
 	svgAuto.style.width = 550;
 	svgAuto.style.height = 177;
 	svgAuto.replaceChild(svgChildNodesSm[0],svgAuto.lastChild);
 	svgDiv.style.height = "207px";
 }else{
-//	适配小屏幕
+	/* suit the extreme small screen */
 	svgAuto.style.width = svgWidth-1;
 	svgAuto.style.height = (svgWidth*177)/550;
 	svgAuto.replaceChild(svgChildNodesFlex[0],svgAuto.lastChild);
