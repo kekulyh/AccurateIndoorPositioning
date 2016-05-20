@@ -22,11 +22,7 @@
 </head>
 
 <!-- <body> -->
-
-<!-- SVG -->
 <body>
-<!-- SVG function -->
-
 <!--[if lt IE 7]>
 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
@@ -151,14 +147,14 @@
 			<!-- Map Content -->
             <div class="col-md-10 col-sm-10">
                 <div class="blog-post blog-single-post">
-					<!-- 标题 -->
+					<!-- Title -->
                     <div class="single-post-title" align="center">
                         <h3>Level 7 Office Map</h3>
                     </div>
-					<!-- 分隔线 -->
+					<!-- Divider -->
                     <div class="single-post-info"></div>
 
-					<!-- SVG画板点击生成坐标点 -->
+					<!-- SVG sketch board: click to attach spot image -->
                     <!-- <div class="single-post-image">
                     	<h5 class="bg-primary">Click On Map To Draw Coordinates (Test)</h5>
                         <svg id="svgMap" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:900px;height:290px;border:0px solid black;">
@@ -166,10 +162,10 @@
                         </svg>
                     </div> -->
                     
-                    <!-- 分隔线 -->
+                    <!-- Divider -->
                     <!-- <div class="single-post-info"></div> -->
                     
-                    <!-- AJAX生成坐标点 -->
+                    <!-- SVG sketch board: AJAX post request -->
 					<div id="svgDiv" class="single-post-image">
 						<h5 class="bg-primary">Click Device Button To Draw Coordinates (Test)</h5>
                         <svg id="svgAuto" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:900px;height:290px;border:0px solid black;">
@@ -178,19 +174,19 @@
                     </div>
                     <br>
                     
-                    <!-- 显示坐标 -->
+                    <!-- Display coordinate value -->
                     <div>
                     	<div class="bg-info text-left"  >Coordinate X : <span id="coordinateXLabel"></span></div>
                     	<div class="bg-info text-left"  >Coordinate Y : <span id="coordinateYLabel"></span></div>
                     </div>
                     
-                    <!-- 显示宽高 -->
+                    <!-- Display screen width & height value -->
                     <div>
                     	<div class="bg-info text-left"  >Width : <span id="divWidth"></span></div>
                     	<div class="bg-info text-left"  >Height : <span id="divHeight"></span></div>
                     </div>
                     
-					<!-- 分隔线 -->
+					<!-- Divider -->
                     <div class="single-post-info"></div>
                 </div>
             </div>

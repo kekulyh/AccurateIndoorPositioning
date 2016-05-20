@@ -1,71 +1,43 @@
-///** 
-// * SVG画板上根据鼠标坐标画点 
-// */
-//
-//function SvgClick()
-//{
-//    var svgMap = document.getElementById("svgMap");
-//    svgMap.onclick = function(event)
-//    {
-//        var xmlns = "http://www.w3.org/2000/svg";
-//        var tSvgMap = document.getElementById("svgMap");
-//
-//		/* 创建元素以添加图片 */
-//        var svgImg = document.createElementNS(xmlns,"image");
-//
-//		/* 元素添加属性 */
-//        svgImg.href.baseVal = "img/location.png" ;
-//        svgImg.setAttributeNS(null,"x",event.offsetX-7.5);
-//        svgImg.setAttributeNS(null,"y",event.offsetY-7.5);
-//        svgImg.setAttributeNS(null,"height","15px");
-//        svgImg.setAttributeNS(null,"width","15px");
-//
-//		/* 父元素加上新创建的元素 */
-//        tSvgMap.appendChild(svgImg);
-//    }
-//}
-
 /** 
- * monitor界面主要功能JavaScript，用于实现点击按钮后的AJAX交互，以及地图坐标的绘制
+ * Monitoring JavaScript functions: AJAX post request and map drawing.
  */
 
-/* 定义坐标为全局变量 */
+/* Define global variables */
 var xOld;
 var yOld;
 var xNew;
 var yNew;
 
-/* 定义div宽高为全局变量 */
+/* Define global div size variables */
 var svgHeight;
 var svgWidth;
 
-/* 定义上一次的div宽高变量，用以判断是否屏幕尺寸改变了 */
+/* Define last div size variables, for judging the changing of screen size */
 var svgHeightOld;
 var svgWidthOld;
 
-//全局变量，enter函数里定义，这样主函数后面才可以clearInterval
+// Global variables for interval functions and clearInterval functions
 var AjaxTimeout;
 var AjaxInterval;
 
 
-
 /** 
- * 自定义的取外层div宽高的函数, 用于确定当前的屏幕尺寸
+ * Get outer div sizes, for retrieving current screen size.
  */
 
 function getDivWidthandHeight(){
 	
-	/* col-lg: 901 x 320; SVG: 900 x 290
+	/* *
+	 * col-lg: 901 x 320; SVG: 900 x 290
 	 * col-md: 734 x 320; SVG: 733 x 236
 	 * col-sm: 551 x 320; SVG: 550 x 177
-	 * 
 	 * */
 	
-//	取得svg外层div的宽高
+//	get outer div size
 	svgWidth = document.getElementById("svgDiv").offsetWidth;
 	svgHeight = document.getElementById("svgDiv").offsetHeight;
 	
-//	显示该宽高用于调试
+//	display sizes for testing
 	document.getElementById("divWidth").innerHTML=svgWidth;
 	document.getElementById("divHeight").innerHTML=svgHeight;
 	
@@ -73,7 +45,7 @@ function getDivWidthandHeight(){
 
 
 /** 
- * 自定义清地图函数
+ * Clear the map and coordinate spots
  */
 
 function cleanSvg(){
@@ -82,29 +54,29 @@ function cleanSvg(){
 	
 	var svgAuto = document.getElementById("svgAuto");
 
-	/* 由于svg没有innerHTML，所以需要通过div节点来转换一下, 详见博客解释: http://blog.csdn.net/kekulyh/article/details/50986832 */
-	/* 三种大小的地图 */
+	/* Since svg does not have innerHTML, we need to transfer through div child node. Details see: http://blog.csdn.net/kekulyh/article/details/50986832 */
+	/* Map of four sizes */
 	var mapBg = '<image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">';
 	var mapMd = '<image xlink:href="img/maps/level_7_office_map.png" width="733px" height="236px">';
 	var mapSm = '<image xlink:href="img/maps/level_7_office_map.png" width="550px" height="177px">';
 	var mapFlex = '<image xlink:href="img/maps/level_7_office_map.png" width="'+ svgWidth +'" height="'+ (svgWidth*177)/550 +'">';
-    /* 创建用于转换的div节点 */
+	/* Create dummy node for transforming */
     var dummyBg = document.createElement('div');
     var dummyMd = document.createElement('div');
     var dummySm = document.createElement('div');
     var dummyFlex = document.createElement('div');
-    /* 向其中添加svg节点，并把内容加入svg子节点 */
+    /* Add svg child nodes to dummy nodes and add contents into svg child node. */
     dummyBg.innerHTML = '<svg>' + mapBg + '</svg>';
     dummyMd.innerHTML = '<svg>' + mapMd + '</svg>';
     dummySm.innerHTML = '<svg>' + mapSm + '</svg>';
     dummyFlex.innerHTML = '<svg>' + mapFlex + '</svg>';
-    /* 获取map的html内容 */
+    /* Retrieve html contents of map */
     var svgChildNodesBg = dummyBg.childNodes[0].childNodes;
     var svgChildNodesMd = dummyMd.childNodes[0].childNodes;
     var svgChildNodesSm = dummySm.childNodes[0].childNodes;
     var svgChildNodesFlex = dummyFlex.childNodes[0].childNodes;
 	
-	/* 清地图上轨迹 */
+	/* Clear map and coordinate spots */
 	if(svgWidth>900){
 		svgAuto.replaceChild(svgChildNodesBg[0],svgAuto.lastChild);
 	}else if(svgWidth>733){
@@ -112,7 +84,7 @@ function cleanSvg(){
 	}else if(svgWidth>550){
 		svgAuto.replaceChild(svgChildNodesSm[0],svgAuto.lastChild);
 	}else{
-//		适配小屏幕
+//		Responsible for extreme small screen
 		svgAuto.replaceChild(svgChildNodesFlex[0],svgAuto.lastChild);
 	}
 	
@@ -120,7 +92,7 @@ function cleanSvg(){
 
 
 /** 
- * 自定义的画坐标的函数
+ * Coordinate drawing function
  */
 
 function ShowDevice(x, y){
@@ -130,41 +102,40 @@ function ShowDevice(x, y){
 	var xmlns = "http://www.w3.org/2000/svg";
 	var tSvgAuto = document.getElementById("svgAuto");
 
-	/* 创建元素以添加图片 */
+	/* Create spot image element*/
 	var svgImg = document.createElementNS(xmlns,"image");
 
-	/* 元素添加属性 (gait estimation method in CoordinateCalculation.coordinateCalculationWithGesture() ) */
+	/* add attributes to element (gait estimation method in CoordinateCalculation.coordinateCalculationWithGesture() ) */
 	svgImg.href.baseVal = "img/location.png" ;
 	svgImg.setAttributeNS(null,"x",coordinateX-7.5);
 	svgImg.setAttributeNS(null,"y",coordinateY-7.5);
 	svgImg.setAttributeNS(null,"height","15px");
 	svgImg.setAttributeNS(null,"width","15px");
 	
-//	/* 元素添加属性 (integration of accel and velocity method in CoordinateCalculation.coordinateCalculationWithGesture() ) */
+//	/* add attributes to element (integration of accel and velocity method in CoordinateCalculation.coordinateCalculationWithGesture() ) */
 //	svgImg.href.baseVal = "img/location.png" ;
 //	svgImg.setAttributeNS(null,"x",coordinateX-2);
 //	svgImg.setAttributeNS(null,"y",coordinateY-2);
 //	svgImg.setAttributeNS(null,"height","4px");
 //	svgImg.setAttributeNS(null,"width","4px");
 
-	
-	/* 父元素加上新创建的元素 */
+	/* append element to father node */
 	tSvgAuto.appendChild(svgImg);
 }
 
 
 /**
- * 自定义的画轨迹函数
+ * Trace drawing function
  */
 
 function DrawLine() {
 	var group = document.getElementById("svgAuto");
 	var xmlns = "http://www.w3.org/2000/svg";
 
-	/* 创建元素以画线 */
+	/* create line element */
     var line = document.createElementNS(xmlns,"line");
 
-	/* 定义属性 */
+	/* define attributes */
     this.x1 = xOld;
     this.y1 = yOld;
     this.x2 = xNew;
@@ -173,7 +144,7 @@ function DrawLine() {
     this.linewidth = "1px";
     this.DrawLine = DrawLine;
 
-    /* 元素添加属性 */
+    /* add attributes to element */
     line.setAttribute("x1", this.x1);
     line.setAttribute("y1", this.y1);
     line.setAttribute("x2", this.x2);
@@ -182,12 +153,12 @@ function DrawLine() {
     line.style.setProperty("fill", this.linecolor)
     line.style.setProperty("stroke-width", this.linewidth)
     
-    /* 父元素加上新创建的元素 */
+    /* append element to father node */
     group.appendChild(line);
 }
 
 /**
- * 取当前页面的名字
+ * Get current page name
  */
 
 function pageName()
@@ -256,7 +227,7 @@ function AjaxMap(){
 					xOld = xNew;
 					yOld = yNew;
 
-					/* display coordinate number */
+					/* display coordinate values */
 					document.getElementById("coordinateXLabel").innerHTML=xNew;
 					document.getElementById("coordinateYLabel").innerHTML=yNew;
 				}
@@ -271,16 +242,16 @@ function AjaxMap(){
 	}
 
 /**
- * 自定义的轮询函数 enter
+ * Interval function
  */
 function enter() {
 
-	/* 初始执行一次 */
+	/* start first timeout 0.1 second, execute once */
     AjaxTimeout = setTimeout(function() {
 		AjaxMap();
 	},100);
 
-	/* 设置每0.1秒轮询一次 */
+	/* set execution interval 0.1 second */
 	AjaxInterval = setInterval(function(){
 		AjaxMap();
 	},100);
@@ -288,33 +259,33 @@ function enter() {
 }
 
 /**
- * 点击按钮执行轮询
+ * Click button to start interval
  */
 $(function(){
 	$("#deviceform").click( function(){
 		var svgAuto = document.getElementById("svgAuto");
 
-		/* 清现在坐标，第一个点不画轨迹 */
+		/* Clear traces, do not draw trace for first node */
 		xOld = null;
 		yOld = null;
 
-		/* 清轮询，否则每点一次按钮都会增加一个轮询函数，使得画坐标速度倍增，逻辑错误 */
+		/* Clear interval, otherwise every time pressing button would add an interval function. */
 		clearInterval(AjaxInterval);
 
-		/* 清地图上轨迹 */
+		/* Clear coordinate spots */
 		cleanSvg();
 
-		/* 执行轮询 */
+		/* Start interval */
 		enter();
 	}); 
 });
 
 
 /**
- * 自定义的AJAX交互函数 AjaxReset
+ * Reset interval, stop post request
  */
 function AjaxReset(){
-	//jQuery的AJAX方法
+	// jQuery AJAX method
 	$.ajax({
 		type : 'POST',
 		url : 'resetcoordinate',
@@ -323,23 +294,23 @@ function AjaxReset(){
 		dataType : 'json',
 		success : 
 			function(data) {
-				/* 取后台传的JSON值 */
+				/* retrieve JSON data from server */
 				var dataEval = eval(data);
 				
-				/* 取div宽高，判断屏幕大小，由此设置地图大小 */
+				/* get div width and height, determine the screen size and set map size */
 				getDivWidthandHeight();
 				
-				/* 判断当前屏幕尺寸，确定坐标比例 */
+				/* determine screen size and coordinate scale */
 				if(svgWidth>900){
-					/* 赋值坐标 */
+					/* set coordinate */
 					xNew = dataEval.coordinateX;
 					yNew = dataEval.coordinateY;
 				}else if(svgWidth>733){
-					/* 赋值坐标 */
+					/* set coordinate */
 					xNew = dataEval.coordinateX * 733/900;
 					yNew = dataEval.coordinateY * 733/900;
 				}else if(svgWidth>550){
-					/* 赋值坐标 */
+					/* set coordinate */
 					xNew = dataEval.coordinateX * 550/900;
 					yNew = dataEval.coordinateY * 550/900;
 				}else{
@@ -347,25 +318,25 @@ function AjaxReset(){
 					yNew = dataEval.coordinateY * svgWidth/900;
 				}
 
-				/* 判断是否为第一个点，第一个点不画轨迹 */
+				/* if first spot, do not draw trace */
 				if (xOld == null || yOld == null) {
 					xOld = xNew;
 					yOld = yNew;
 					}
-				/* 如果不是第一个点，则正常画坐标 */
+				/* if not first spot, normal drawing */
 				if (xNew != xOld || yNew != yOld) {
 					
-					/* 显示坐标点 */
+					/* display coordinate */
 					ShowDevice(xNew, yNew);
 
-					/* 画轨迹 */
+					/* draw traces */
 					DrawLine();
 
-					/* 坐标赋给Old，为下一个轨迹使用 */
+					/* set coordianteOld, for determining next trace */
 					xOld = xNew;
 					yOld = yNew;
 
-					/* 显示坐标 */
+					/* display coordinate values */
 					document.getElementById("coordinateXLabel").innerHTML=xNew;
 					document.getElementById("coordinateYLabel").innerHTML=yNew;
 				}
@@ -376,15 +347,15 @@ function AjaxReset(){
 			document.getElementById("coordinateXLabel").innerHTML="null";
 			document.getElementById("coordinateYLabel").innerHTML="null";
 	    	}
-		});//ajax轮询函数结束
+		});// ajax interval end
 	}
 
 /**
- * 自定义的轮询函数 reset
+ * reset interval function
  */
 function reset() {
 	
-	/* 初始执行一次 */
+	/* start first timeout 0.1 second, execute once */
     AjaxTimeout = setTimeout(function() {
 		AjaxReset();
 	},100);
@@ -392,7 +363,7 @@ function reset() {
 }
 
 /**
- * 点击按钮重置device1原始值
+ * resetform post request
  */
 
 $(function(){
@@ -400,14 +371,14 @@ $(function(){
 		
 		var svgAuto = document.getElementById("svgAuto");
 
-		/* 清现在坐标，第一个点不画轨迹 */
+		/* Clear traces, do not draw trace for first node */
 		xOld = null;
 		yOld = null;
 
-		/* 清轮询，否则每点一次按钮都会增加一个轮询函数，使得画坐标速度倍增，逻辑错误 */
+		/* Clear interval, otherwise every time pressing button would add an interval function. */
 		clearInterval(AjaxInterval);
 
-		/* 清地图上轨迹 */
+		/* Clear coordinate spots */
 		cleanSvg();
 		
 		/* reset original coordinate value */
@@ -416,7 +387,7 @@ $(function(){
 });
 
 /**
- * 点击按钮终止ajax请求
+ * abortAjax button function
  */
 
 $(function(){
@@ -426,24 +397,24 @@ $(function(){
 });
 
 /**
- * 供android端调用的function
+ * android app function 
  */
 
 function androidAjax(){
 //	alert("androidAjax");
 	var svgAuto = document.getElementById("svgAuto");
 
-	/* 清现在坐标，第一个点不画轨迹 */
+	/* Clear traces, do not draw trace for first node */
 	xOld = null;
 	yOld = null;
 
-	/* 清轮询，否则每点一次按钮都会增加一个轮询函数，使得画坐标速度倍增，逻辑错误 */
+	/* Clear interval, otherwise every time pressing button would add an interval function. */
 	clearInterval(AjaxInterval);
 
-	/* 清地图上轨迹 */
+	/* Clear coordinate spots */
 	cleanSvg();
 
-	/* 执行轮询 */
+	/* Start interval */
 	enter();
 }
 

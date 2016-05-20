@@ -1,5 +1,5 @@
 /**
- * JavaScript函数用于调整svg和地图尺寸适配屏幕, webkit引擎及firefox、chrome均可适用
+ * JavaScript functions for adjusting svg and map sizes. Availble for Webkit,Gecko and Trident engine.
  */
 
 var svgWidth = document.getElementById("svgDiv").offsetWidth;
@@ -9,27 +9,27 @@ var divHeightDisplay = document.getElementById("divHeight");
 var svgAuto = document.getElementById("svgAuto");
 var svgDiv = document.getElementById("svgDiv");
 
-/* 显示div宽高，用于调试 */
+/* Display div size for testig */
 divWidthDisplay.innerHTML=svgWidth;
 divHeightDisplay.innerHTML=svgHeight;
 
-/* 由于svg没有innerHTML，所以需要通过div节点来转换一下, 详见博客解释: http://blog.csdn.net/kekulyh/article/details/50986832 */
-/* 三种大小的地图 */
+/* Since svg does not have innerHTML, we need to transfer through div child node. Details see: http://blog.csdn.net/kekulyh/article/details/50986832 */
+/* Map of four sizes */
 var mapBg = '<image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">';
 var mapMd = '<image xlink:href="img/maps/level_7_office_map.png" width="733px" height="236px">';
 var mapSm = '<image xlink:href="img/maps/level_7_office_map.png" width="550px" height="177px">';
 var mapFlex = '<image xlink:href="img/maps/level_7_office_map.png" width="'+ svgWidth +'" height="'+ (svgWidth*177)/550 +'">';
-/* 创建用于转换的div节点 */
+/* Create dummy node for transforming */
 var dummyBg = document.createElement('div');
 var dummyMd = document.createElement('div');
 var dummySm = document.createElement('div');
 var dummyFlex = document.createElement('div');
-/* 向其中添加svg节点，并把内容加入svg子节点 */
+/* Add svg child nodes to dummy nodes and add contents into svg child node. */
 dummyBg.innerHTML = '<svg>' + mapBg + '</svg>';
 dummyMd.innerHTML = '<svg>' + mapMd + '</svg>';
 dummySm.innerHTML = '<svg>' + mapSm + '</svg>';
 dummyFlex.innerHTML = '<svg>' + mapFlex + '</svg>';
-/* 获取map的html内容 */
+/* Retrieve html contents of map */
 var svgChildNodesBg = dummyBg.childNodes[0].childNodes;
 var svgChildNodesMd = dummyMd.childNodes[0].childNodes;
 var svgChildNodesSm = dummySm.childNodes[0].childNodes;
@@ -65,7 +65,7 @@ if(svgWidth>900){
 	svgDiv.style.height = ""+(svgWidth*177)/550+"px";
 }
 
-/* 屏幕尺寸变动，重新设置div与svg宽高，并清空地图 */
+/* When screen size changes, set div and svg size again, clear coordinates. */
 $(window).resize(function() {
 	svgWidth = document.getElementById("svgDiv").offsetWidth;
 	svgHeight = document.getElementById("svgDiv").offsetHeight;
@@ -77,23 +77,23 @@ $(window).resize(function() {
 	divWidthDisplay.innerHTML=svgWidth;
 	divHeightDisplay.innerHTML=svgHeight;
 
-	/* 由于svg没有innerHTML，所以需要通过div节点来转换一下, 详见博客解释:  */
-	/* 三种大小的地图 */
+	/* Since svg does not have innerHTML, we need to transfer through div child node. Details see: http://blog.csdn.net/kekulyh/article/details/50986832 */
+	/* Map of four sizes */
 	mapBg = '<image xlink:href="img/maps/level_7_office_map.png" width="900px" height="290px">';
 	mapMd = '<image xlink:href="img/maps/level_7_office_map.png" width="733px" height="236px">';
 	mapSm = '<image xlink:href="img/maps/level_7_office_map.png" width="550px" height="177px">';
 	mapFlex = '<image xlink:href="img/maps/level_7_office_map.png" width="'+ svgWidth +'" height="'+ svgHeight +'">';
-    /* 创建用于转换的div节点 */
+	/* Create dummy node for transforming */
     dummyBg = document.createElement('div');
     dummyMd = document.createElement('div');
     dummySm = document.createElement('div');
     dummyFlex = document.createElement('div');
-    /* 向其中添加svg节点，并把内容加入svg子节点 */
+    /* Add svg child nodes to dummy nodes and add contents into svg child node. */
     dummyBg.innerHTML = '<svg>' + mapBg + '</svg>';
     dummyMd.innerHTML = '<svg>' + mapMd + '</svg>';
     dummySm.innerHTML = '<svg>' + mapSm + '</svg>';
     dummyFlex.innerHTML = '<svg>' + mapFlex + '</svg>';
-    /* 获取map的html内容 */
+    /* Retrieve html contents of map */
     svgChildNodesBg = dummyBg.childNodes[0].childNodes;
     svgChildNodesMd = dummyMd.childNodes[0].childNodes;
     svgChildNodesSm = dummySm.childNodes[0].childNodes;
@@ -121,7 +121,7 @@ $(window).resize(function() {
 		svgDiv.style.height = ""+(svgWidth*177)/550+"px";
 	}
 	
-	/* 清现在坐标，第一个点不画轨迹，否则屏幕尺寸改变后，会出现上一次取得的坐标画出来的轨迹线 */
+	/* Clear current coordinates spots. Set old variables to null, otherwise next loop will show invalid walking traces. */
 	xOld = null;
 	yOld = null;
 	

@@ -1,7 +1,12 @@
+/** 
+ * Gesture JavaScript functions
+ */
+
+// Define global variable node
 var node;
 
 /** 
- * 初始化Graph3dView
+ * Init Graph3dView
  */
 function init(){
 	items = [
@@ -39,22 +44,22 @@ function init(){
              borderPane.invalidate(0);
          }, false);
 
-//    设置视角
+//    set viewing camera
     g3d.setEye([0, 300, 1000]);
-//    控制是否可旋转
+//    set rotatable
     g3d.setRotatable(false);
-//    控制是否可缩放
+//    set zoomable
     g3d.setZoomable(false);
-//    控制是否可平移
+//    set pannable
     g3d.setPannable(false);
-//    控制是否可进退
+//    set walkable
     g3d.setWalkable(false);
-//    控制是否可按空格键复位
+//    set resettable using space button
     g3d.setResettable(false);
-//    控制是否可框选
+//    set selectable
     g3d.setRectSelectable(false);
 
-//    创建3d节点
+//    Create 3D node
     node = createNode([0, 0, 0], [600, 60, 300], [0.2, 1, 0.2]).s({
         'all.reverse.cull': 'false',
         'left.color': 'pink',
@@ -67,7 +72,7 @@ function init(){
 
 }
 /** 
- * 创建3d节点
+ * Create 3D node
  */
 function createNode(p3, s3, r3){
     var node = new ht.Node();
@@ -77,8 +82,9 @@ function createNode(p3, s3, r3){
     dataModel.add(node);
     return node;
 }
+
 /** 
- * 开始姿态刷新动画（testing，已废弃）
+ * Start animation (testing,abandon)
  */
 function startAnim(node){
     var i = 0;
@@ -98,9 +104,8 @@ function startAnim(node){
 }
 
 /**
- * 取当前页面的名字
+ * Get current page name
  */
-
 function pageName()
 {
 	var str = window.location.href;
@@ -110,13 +115,13 @@ function pageName()
 
 
 /**
- * 自定义的AJAX交互函数
+ * Interworking function AjaxMap
  */
 function AjaxMap(){
-//	获取当前页面路径，作为ajax的url
+//	retrieve current page name as url
 	var currentPage = pageName();
 	
-	//jQuery的AJAX方法
+	// jQuery AJAX method
 	$.ajax({
 		type : 'POST',
 		url : ''+ currentPage +'',
@@ -125,7 +130,7 @@ function AjaxMap(){
 		dataType : 'json',
 		success : 
 			function(data) {
-				/* 取后台传的JSON值 */
+				/* retrieve JSON data from server */
 				var dataEval = eval(data);
 				
 				yaw = dataEval.yaw * Math.PI/180;
@@ -138,23 +143,28 @@ function AjaxMap(){
 			function(XMLHttpRequest, textStatus, errorThrown) {
 				
 	    	}
-		});//ajax轮询函数结束
+		});// ajax interval end
 	}
 
-
+/**
+ * Start monitoring function
+ */
 function start() {
-	/* 初始执行一次 */
+	/* start first timeout 0.1 second, execute once */
     AjaxTimeout = setTimeout(function() {
 		AjaxMap();
 	},100);
 
-	/* 设置每0.1秒轮询一次 */
+    /* set execution interval 0.1 second */
 	AjaxInterval = setInterval(function(){
 		AjaxMap();
 	},100);
 	
 }
 
+/**
+ * Stop monitoring function
+ */
 function stop(){
 	clearInterval(AjaxInterval);
 }

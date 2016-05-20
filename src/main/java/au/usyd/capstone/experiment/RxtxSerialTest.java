@@ -2,7 +2,7 @@
 *	File name: RxtxSerialTest
 *	Author: Yahong Liu
 *	Version: 6.0
-*	Date: 01/Nov/2015
+*	Date: 10/May/2015
 *	Description: Java RXTX read serial input and calculation of coordinate
 ***************************************************************************/
 
@@ -44,16 +44,6 @@ public class RxtxSerialTest implements SerialPortEventListener {
 	/** variables for coordinate calculation */
 	// Array for storing the input string data
 	private static String[] array = {"0", "0", "1", "0", "0", "0", "0", "0", "0"};
-//	// Input data split to string
-//	private String a1 = "0";
-//	private String a2 = "0";
-//	private String a3 = "1";
-//	private String g1 = "0";
-//	private String g2 = "0";
-//	private String g3 = "0";
-//	private String m1 = "0";
-//	private String m2 = "0";
-//	private String m3 = "0";
 	
 	// gesture
 	private static double yaw = 0;
@@ -206,28 +196,27 @@ public class RxtxSerialTest implements SerialPortEventListener {
 			try {
 				// read line data to string
 				String inputLine = input.readLine();
-//				System.out.println("InputLine: "+ inputLine );
-				
 				// split data into array
 				array = inputLine.split("\\\t");
 				
 //				// call function for calculation (simple algorithm for testing)
-//				Coordinate coordinate = CoordinateCalculation.coordinateCalculation(array[0], array[1], array[2], array[3], array[4], array[5]);
-//				
+//				Coordinate coordinate = CoordinateCalculation.coordinateCalculation(
+//						array[0], array[1], array[2], array[3], array[4], array[5]);
 //				// gesture by quaternion (six axis)
-//				Gesture gesture = CoordinateCalculation.gestureCalculationWithQuaternionSixAxis(array[0], array[1], array[2], array[3], array[4], array[5]);
-				
+//				Gesture gesture = CoordinateCalculation.gestureCalculationWithQuaternionSixAxis(
+//						array[0], array[1], array[2], array[3], array[4], array[5]);
 				
 				// gesture by quaternion (nine axis)
-				Gesture gesture = CoordinateCalculation.gestureCalculationWithQuaternionNineAxis(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8]);
+				Gesture gesture = CoordinateCalculation.gestureCalculationWithQuaternionNineAxis(
+						array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8]);
 				// set yaw, pitch, roll ( for DeviceDaoImpl.calculateGesture(device) )
 				setYaw(gesture.getYaw());
 				setPitch(gesture.getPitch());
 				setRoll(gesture.getRoll());
-//				System.out.println("Yaw: " + yaw + "Pitch: " + pitch + "Roll: " + roll);
 				
 				// coordinate by gesture ( for DeviceDaoImpl.calculateCoordinate(device) )
-				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithGesture(gesture, array[0], array[1], array[2], coordinateX, coordinateY);
+				Coordinate coordinate = CoordinateCalculation.coordinateCalculationWithGesture(
+						gesture, array[0], array[1], array[2], coordinateX, coordinateY);
 				// set coordinate
 				setCoordinateX(coordinate.getCoordinateX());
 				setCoordinateY(coordinate.getCoordinateY());

@@ -33,7 +33,7 @@ public class MonitorForZhaidiController {
 	}
 	
 	@RequestMapping(value="/monitorforzhaidi", method=RequestMethod.POST, produces = "application/json")
-	//@ResponseBody将内容作为response的主体传回
+	//@ResponseBody: return content as web response body
 	@ResponseBody
 	public String monitortestpost() throws JsonProcessingException {
 		
@@ -57,11 +57,11 @@ public class MonitorForZhaidiController {
 			e.printStackTrace();
 		}
 		
-		//向HashMap中放入坐标键值对
+		// put key-value pair into HashMap
 		map.put("coordinateX", coordinateX);
 		map.put("coordinateY", coordinateY);
 		
-		//将HashMap转为JSON格式字符串
+		// transfer HashMap into JSON string
 		ObjectMapper mapper = new ObjectMapper();
 		String str = mapper.writeValueAsString(map);
 		//System.out.println(str);
@@ -71,7 +71,7 @@ public class MonitorForZhaidiController {
 	}
 	
 	@RequestMapping(value="/resetcoordinate", method=RequestMethod.POST, produces = "application/json")
-	//@ResponseBody将内容作为response的主体传回
+	//@ResponseBody: return content as web response body
 	@ResponseBody
 	public String resetCoordinate() throws JsonProcessingException {
 		
@@ -88,11 +88,11 @@ public class MonitorForZhaidiController {
 		String coordinateX = String.valueOf( deviceTest.getCoordinateX() );
 		String coordinateY = String.valueOf( deviceTest.getCoordinateY() );
 		
-		//向HashMap中放入坐标键值对
+		// put key-value pair into HashMap
 		map.put("coordinateX", coordinateX);
 		map.put("coordinateY", coordinateY);
 		
-		//将HashMap转为JSON格式字符串
+		// transfer HashMap into JSON string
 		ObjectMapper mapper = new ObjectMapper();
 		String str = mapper.writeValueAsString(map);
 		//System.out.println(str);
